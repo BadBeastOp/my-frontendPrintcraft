@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get a Quote – PrintCraft</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#FF5C00;--orange-dark:#D94C00;--dark:#0f0f0f;--mid:#666;--light:#f5f5f5;--white:#fff;--border:#e8e8e8;--ease:cubic-bezier(.25,.46,.45,.94)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;color:var(--dark);background:var(--white);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em;line-height:1.05}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+input,select,textarea{font-family:'Outfit',sans-serif}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.from-left{transform:translateX(-36px)}
+.reveal.from-right{transform:translateX(36px)}
+.reveal.visible{opacity:1!important;transform:none!important}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* TOPBAR */
+.topbar{background:var(--dark);color:#777;font-size:12.5px;padding:9px 0}
+.topbar-inner{max-width:1320px;margin:auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center}
+.topbar-left{display:flex;gap:20px;align-items:center}
+.topbar-div{width:1px;height:12px;background:#333}
+.topbar a{color:#666;transition:color .2s}.topbar a:hover{color:var(--orange)}
+.topbar-right{display:flex;gap:18px}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 4px 28px rgba(0,0,0,.09)}
+.header-inner{max-width:1320px;margin:auto;padding:0 28px;height:74px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-icon{width:42px;height:42px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center;transition:transform .35s,box-shadow .35s}
+.logo:hover .logo-icon{transform:rotate(-8deg) scale(1.1);box-shadow:0 6px 22px rgba(255,92,0,.4)}
+.logo-icon svg{width:22px;height:22px;fill:white}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px}
+.logo-text span{color:var(--orange)}
+nav{display:flex;gap:2px;align-items:center;flex:1;justify-content:center}
+.nav-item{position:relative}
+.nav-link{display:flex;align-items:center;gap:4px;padding:8px 13px;border-radius:8px;font-size:13px;font-weight:700;color:var(--dark);text-transform:uppercase;letter-spacing:.07em;transition:all .2s}
+.nav-link:hover,.nav-link.active{color:var(--orange);background:rgba(255,92,0,.07)}
+.nav-arrow{font-size:9px;transition:transform .25s}
+.nav-item:hover .nav-arrow{transform:rotate(180deg)}
+.dropdown{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(10px);background:white;border-radius:14px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.13);padding:8px;min-width:200px;opacity:0;visibility:hidden;transition:all .28s var(--ease);z-index:300}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.dropdown a{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:8px;font-size:13px;font-weight:500;transition:all .18s}
+.dropdown a:hover{background:rgba(255,92,0,.07);color:var(--orange);padding-left:18px}
+.dd-i{font-size:14px;width:20px;text-align:center}
+.header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.icon-btn{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--dark);transition:all .2s;position:relative}
+.icon-btn:hover{background:var(--light);color:var(--orange)}
+.icon-btn svg{width:20px;height:20px}
+.cart-badge{position:absolute;top:4px;right:4px;background:var(--orange);color:white;font-size:9px;font-weight:900;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white}
+.btn-quote{padding:9px 17px;border:2px solid var(--orange);color:var(--orange);border-radius:9px;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;transition:all .22s}
+.btn-quote:hover{background:var(--orange);color:white}
+.btn-order{padding:9px 19px;background:var(--orange);color:white;border-radius:9px;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;transition:all .22s;box-shadow:0 4px 16px rgba(255,92,0,.3)}
+.btn-order:hover{background:var(--orange-dark);transform:translateY(-2px)}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:8px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dark);border-radius:2px;transition:all .32s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:74px;left:0;right:0;bottom:0;background:white;z-index:999;padding:24px 28px;transform:translateX(100%);transition:transform .4s var(--ease);overflow-y:auto}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu a{display:block;padding:15px 0;border-bottom:1px solid var(--border);font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1.5px;transition:color .2s,padding-left .22s}
+.mobile-menu a:hover{color:var(--orange);padding-left:10px}
+
+/* SEARCH */
+.search-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1200;display:flex;align-items:flex-start;justify-content:center;padding-top:120px;opacity:0;visibility:hidden;transition:all .3s}
+.search-overlay.open{opacity:1;visibility:visible}
+.search-box{width:100%;max-width:660px;margin:0 20px;transform:translateY(-20px);transition:transform .4s var(--ease)}
+.search-overlay.open .search-box{transform:translateY(0)}
+.s-input-row{position:relative}
+.s-input{width:100%;padding:22px 60px 22px 24px;background:white;border:none;border-radius:16px;font-size:19px;font-family:'Outfit',sans-serif;outline:none;color:var(--dark)}
+.s-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:44px;height:44px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center;color:white}
+.s-tags{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.stag{padding:7px 15px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:white;border-radius:100px;font-size:12.5px;cursor:pointer;transition:all .2s}
+.stag:hover{background:var(--orange);border-color:var(--orange)}
+.s-close{position:fixed;top:28px;right:28px;width:46px;height:46px;background:rgba(255,255,255,.1);color:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer}
+
+/* PAGE HERO */
+.page-hero{background:var(--dark);padding:80px 0;position:relative;overflow:hidden}
+.ph-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 120% at 85% 50%,rgba(255,92,0,.18) 0%,transparent 65%)}
+.ph-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:60px 60px}
+.ph-inner{max-width:1320px;margin:auto;padding:0 28px;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.ph-left{}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:#555;margin-bottom:20px}
+.breadcrumb a{color:#555;transition:color .2s}.breadcrumb a:hover{color:var(--orange)}
+.bc-sep{color:#333}
+.ph-left h1{font-size:clamp(48px,6vw,80px);color:white;margin-bottom:16px;animation:fadeUp .8s ease both}
+.ph-left p{font-size:16px;color:#666;line-height:1.8;animation:fadeUp .8s ease .15s both;max-width:480px}
+.ph-badges{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;animation:fadeUp .8s ease .3s both}
+.ph-badge{display:flex;align-items:center;gap:8px;padding:9px 16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:13px;color:#bbb}
+.ph-badge-icon{font-size:16px}
+.ph-right{animation:fadeUp .8s ease .2s both}
+.ph-stats-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:36px;backdrop-filter:blur(10px)}
+.ph-stats-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:white;letter-spacing:1px;margin-bottom:24px}
+.ph-stat-list{display:flex;flex-direction:column;gap:16px}
+.ph-stat-item{display:flex;align-items:center;gap:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ph-stat-item:last-child{border-bottom:none;padding-bottom:0}
+.ph-stat-icon{width:44px;height:44px;border-radius:12px;background:rgba(255,92,0,.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ph-stat-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--orange);letter-spacing:1px;line-height:1}
+.ph-stat-label{font-size:13px;color:#666}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* HOW IT WORKS BAR */
+.how-bar{background:var(--orange);padding:20px 0}
+.how-bar-inner{max-width:1320px;margin:auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.how-step{display:flex;align-items:center;gap:12px}
+.how-step-num{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);color:white;font-family:'Bebas Neue',sans-serif;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.how-step-text{font-size:14px;color:rgba(255,255,255,.9);font-weight:600}
+.how-sep{color:rgba(255,255,255,.3);font-size:20px}
+
+/* QUOTE SECTION */
+.quote-section{padding:72px 0 96px;background:var(--light)}
+.container{max-width:1320px;margin:auto;padding:0 28px}
+.quote-wrap{display:grid;grid-template-columns:1fr 360px;gap:36px;align-items:start}
+
+/* FORM CARD */
+.form-card{background:white;border:1px solid var(--border);border-radius:22px;overflow:hidden;margin-bottom:22px;transition:box-shadow .3s}
+.form-card:hover{box-shadow:0 8px 40px rgba(0,0,0,.07)}
+.form-card-head{padding:22px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px}
+.form-card-num{width:34px;height:34px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:19px;flex-shrink:0}
+.form-card-head h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px}
+.form-card-head p{font-size:13px;color:var(--mid);margin-top:2px}
+.form-card-body{padding:28px}
+
+/* PRODUCT CARDS SELECT */
+.product-select-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:8px}
+.prod-sel-card{border:2px solid var(--border);border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;transition:all .28s}
+.prod-sel-card:hover{border-color:var(--orange);background:rgba(255,92,0,.03)}
+.prod-sel-card.active{border-color:var(--orange);background:rgba(255,92,0,.07)}
+.prod-sel-icon{font-size:34px;margin-bottom:10px}
+.prod-sel-name{font-size:13px;font-weight:800;color:var(--dark);line-height:1.3}
+.prod-sel-sub{font-size:11px;color:#bbb;margin-top:4px}
+
+/* FORM FIELDS */
+.form-row{display:grid;gap:16px;margin-bottom:16px}
+.form-row.cols-2{grid-template-columns:1fr 1fr}
+.form-row.cols-3{grid-template-columns:1fr 1fr 1fr}
+.form-group{display:flex;flex-direction:column;gap:7px}
+.form-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--dark)}
+.req{color:var(--orange)}
+.form-input{padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;transition:all .22s;color:var(--dark);background:white}
+.form-input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,92,0,.08)}
+.form-input::placeholder{color:#ccc}
+.form-select{width:100%;padding:13px 40px 13px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;transition:all .22s;color:var(--dark);background:white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") right 12px center/11px no-repeat;-webkit-appearance:none;cursor:pointer}
+.form-select:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,92,0,.08)}
+.form-textarea{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;transition:border-color .22s;resize:vertical;min-height:110px;color:var(--dark)}
+.form-textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,92,0,.08)}
+.form-hint{font-size:11.5px;color:#bbb;margin-top:4px}
+
+/* QUANTITY PRESETS */
+.qty-presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.qty-preset{padding:7px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:all .22s}
+.qty-preset:hover,.qty-preset.active{border-color:var(--orange);color:var(--orange);background:rgba(255,92,0,.07)}
+
+/* FINISH OPTIONS */
+.finish-opts{display:flex;gap:10px;flex-wrap:wrap}
+.finish-opt{padding:9px 16px;border:2px solid var(--border);border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;transition:all .22s}
+.finish-opt:hover,.finish-opt.active{border-color:var(--orange);color:var(--orange);background:rgba(255,92,0,.06)}
+
+/* TIMELINE SLIDER */
+.timeline-opts{display:flex;gap:10px;flex-wrap:wrap}
+.timeline-opt{flex:1;min-width:120px;border:2px solid var(--border);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .28s}
+.timeline-opt:hover{border-color:var(--orange)}
+.timeline-opt.active{border-color:var(--orange);background:rgba(255,92,0,.07)}
+.to-icon{font-size:24px;margin-bottom:8px}
+.to-name{font-size:13px;font-weight:800;color:var(--dark)}
+.to-days{font-size:11px;color:#bbb;margin-top:3px}
+.to-price{font-size:12px;color:var(--orange);font-weight:800;margin-top:5px}
+
+/* FILE UPLOAD */
+.file-upload{border:2px dashed var(--border);border-radius:14px;padding:32px;text-align:center;cursor:pointer;transition:all .25s;position:relative}
+.file-upload:hover,.file-upload.drag{border-color:var(--orange);background:rgba(255,92,0,.03)}
+.file-upload input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.fu-icon{font-size:40px;margin-bottom:12px}
+.fu-text{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:5px}
+.fu-sub{font-size:12.5px;color:#bbb;line-height:1.6}
+.fu-btn{display:inline-block;padding:9px 20px;background:var(--orange);color:white;border-radius:9px;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;margin-top:14px;transition:background .2s}
+.fu-btn:hover{background:var(--orange-dark)}
+.file-list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.file-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--light);border-radius:9px;font-size:13px}
+.file-item-icon{font-size:18px}
+.file-name{flex:1;font-weight:600}
+.file-size{font-size:11px;color:#bbb}
+.file-rm{color:#bbb;cursor:pointer;transition:color .2s;font-size:15px}
+.file-rm:hover{color:#f33}
+
+/* COLOUR SWATCHES */
+.color-opts{display:flex;gap:10px;flex-wrap:wrap}
+.color-swatch{width:32px;height:32px;border-radius:50%;cursor:pointer;transition:all .22s;border:3px solid transparent}
+.color-swatch:hover{transform:scale(1.12)}
+.color-swatch.active{box-shadow:0 0 0 3px white, 0 0 0 5px var(--orange)}
+
+/* AGREE */
+.agree-row{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--light);border-radius:10px;cursor:pointer;margin-bottom:20px}
+.agree-box{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:white;transition:all .22s;flex-shrink:0;margin-top:2px}
+.agree-row.checked .agree-box{background:var(--orange);border-color:var(--orange)}
+.agree-text{font-size:13px;color:var(--mid);line-height:1.65}
+.agree-text a{color:var(--orange);font-weight:700}
+
+/* SUBMIT BTN */
+.btn-submit-quote{width:100%;padding:18px;background:var(--orange);color:white;border-radius:14px;font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;transition:all .28s;box-shadow:0 6px 22px rgba(255,92,0,.35);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-submit-quote:hover{background:var(--orange-dark);transform:translateY(-2px);box-shadow:0 12px 34px rgba(255,92,0,.45)}
+
+/* SIDEBAR */
+.quote-sidebar{display:flex;flex-direction:column;gap:20px;position:sticky;top:94px}
+.sb-card{background:white;border:1px solid var(--border);border-radius:20px;padding:28px;transition:box-shadow .3s}
+.sb-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.07)}
+.sb-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;margin-bottom:18px}
+
+/* CONTACT CARD */
+.contact-methods{display:flex;flex-direction:column;gap:14px}
+.contact-method{display:flex;align-items:center;gap:14px;padding:14px;background:var(--light);border-radius:12px;transition:all .25s;cursor:pointer}
+.contact-method:hover{background:rgba(255,92,0,.07);transform:translateX(4px)}
+.cm-icon{width:44px;height:44px;border-radius:12px;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.cm-label{font-size:12px;color:#bbb;margin-bottom:2px;text-transform:uppercase;letter-spacing:.07em}
+.cm-value{font-weight:700;font-size:14px;color:var(--dark)}
+
+/* WHY US CARD */
+.why-list{display:flex;flex-direction:column;gap:12px}
+.why-item{display:flex;align-items:flex-start;gap:12px;font-size:13.5px;color:var(--mid);line-height:1.6}
+.why-icon{width:26px;height:26px;border-radius:7px;background:rgba(255,92,0,.1);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:1px;font-weight:900}
+
+/* TESTIMONIALS MINI */
+.mini-testimonials{display:flex;flex-direction:column;gap:14px}
+.mini-testi{padding:16px;background:var(--light);border-radius:12px;border-left:3px solid var(--orange)}
+.mini-testi-text{font-size:13px;color:var(--mid);line-height:1.7;font-style:italic;margin-bottom:10px}
+.mini-testi-author{display:flex;align-items:center;gap:8px}
+.mta-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;color:white;flex-shrink:0}
+.mta-name{font-size:12px;font-weight:800;color:var(--dark)}
+.mta-role{font-size:11px;color:#bbb}
+.mini-stars{color:#FFC107;font-size:11px;letter-spacing:1px;margin-bottom:6px}
+
+/* SUCCESS OVERLAY */
+.success-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:all .4s}
+.success-overlay.open{opacity:1;visibility:visible}
+.success-modal{background:white;border-radius:28px;padding:60px 50px;text-align:center;max-width:520px;width:100%;transform:scale(.9) translateY(20px);transition:all .4s var(--ease)}
+.success-overlay.open .success-modal{transform:scale(1) translateY(0)}
+.success-icon{font-size:80px;margin-bottom:20px;animation:popIn .6s var(--ease) .3s both}
+@keyframes popIn{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
+.success-title{font-size:46px;color:var(--dark);margin-bottom:12px}
+.success-sub{font-size:15px;color:var(--mid);line-height:1.75;margin-bottom:24px}
+.quote-ref{display:inline-block;padding:10px 24px;background:rgba(255,92,0,.1);border:1.5px solid rgba(255,92,0,.25);color:var(--orange);border-radius:100px;font-size:14px;font-weight:800;margin-bottom:28px}
+.success-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-success-primary{padding:14px 28px;background:var(--orange);color:white;border-radius:12px;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.07em;transition:all .25s}
+.btn-success-primary:hover{background:var(--orange-dark);transform:translateY(-2px)}
+.btn-success-sec{padding:14px 28px;border:2px solid var(--border);color:var(--mid);border-radius:12px;font-size:14px;font-weight:800;text-transform:uppercase;transition:all .25s}
+.btn-success-sec:hover{border-color:var(--orange);color:var(--orange)}
+
+/* MARQUEE */
+.marquee-bar{background:var(--orange);overflow:hidden;padding:12px 0}
+.marquee-track{display:flex;width:max-content;animation:mscroll 22s linear infinite}
+.mi{display:flex;align-items:center;gap:14px;padding:0 28px;font-family:'Bebas Neue',sans-serif;font-size:18px;color:white;letter-spacing:3px;white-space:nowrap}
+.mstar{font-size:10px;color:rgba(255,255,255,.45)}
+@keyframes mscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* FOOTER */
+footer{background:#080808;color:#555}
+.foot-top{padding:70px 0 50px}
+.foot-grid{max-width:1320px;margin:auto;padding:0 28px;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:60px}
+.foot-logo p{font-size:14px;line-height:1.85;margin:20px 0 28px;max-width:290px;color:#444}
+.foot-socials{display:flex;gap:9px}
+.fsoc{width:38px;height:38px;border-radius:10px;background:#141414;border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;font-size:13px;color:#444;font-weight:800;transition:all .28s}
+.fsoc:hover{background:var(--orange);border-color:var(--orange);color:white;transform:translateY(-4px)}
+.fcol-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:white;letter-spacing:1.5px;margin-bottom:22px}
+.flinks{display:flex;flex-direction:column;gap:11px}
+.flinks a{font-size:13.5px;color:#444;transition:all .22s}
+.flinks a:hover{color:white;padding-left:8px}
+.fcon-row{display:flex;gap:12px;margin-bottom:16px;font-size:13.5px;color:#444}
+.fcon-icon{color:var(--orange);flex-shrink:0}
+.foot-bottom{border-top:1px solid #141414;padding:22px 0}
+.foot-bottom-inner{max-width:1320px;margin:auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#2a2a2a}
+.fbot-links{display:flex;gap:22px}
+.fbot-links a{color:#333;transition:color .2s}
+.fbot-links a:hover{color:var(--orange)}
+
+/* TOAST */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dark);color:white;border-radius:13px;padding:14px 22px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:10px;box-shadow:0 12px 44px rgba(0,0,0,.35);z-index:3000;transition:all .42s var(--ease);opacity:0;pointer-events:none;border-left:4px solid var(--orange)}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* BACK TO TOP */
+.btt{position:fixed;bottom:30px;right:30px;z-index:900;width:48px;height:48px;background:var(--orange);color:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 6px 22px rgba(255,92,0,.42);opacity:0;transform:translateY(24px);pointer-events:none;transition:all .38s var(--ease);border:none;cursor:pointer}
+.btt.vis{opacity:1;transform:translateY(0);pointer-events:all}
+.btt:hover{background:var(--orange-dark);transform:translateY(-4px)}
+
+@media(max-width:1100px){.quote-wrap{grid-template-columns:1fr}.quote-sidebar{position:static}.ph-inner{grid-template-columns:1fr}.ph-right{display:none}.foot-grid{grid-template-columns:1fr 1fr;gap:36px}}
+@media(max-width:768px){nav{display:none}.hamburger{display:flex}.mobile-menu{display:block}.btn-quote{display:none}.product-select-grid{grid-template-columns:repeat(2,1fr)}.form-row.cols-2,.form-row.cols-3{grid-template-columns:1fr}.timeline-opts{flex-direction:column}.how-bar-inner{flex-direction:column;gap:12px}.how-sep{display:none}.foot-grid{grid-template-columns:1fr}.success-modal{padding:40px 24px}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>📞 <a href="#">+1 (800) PRINT-IT</a></span>
+      <div class="topbar-div"></div>
+      <span>✉️ <a href="#">hello@printcraft.com</a></span>
+    </div>
+    <div class="topbar-right">
+      <a href="#">Track Order</a><a href="#">Upload Files</a><a href="#">Login</a><a href="#">Register</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></div>
+      <div class="logo-text">Print<span>Craft</span></div>
+    </a>
+    <nav>
+      <a class="nav-link" href="index.html">Home</a>
+      <div class="nav-item">
+        <a class="nav-link" href="shop.html">Products <span class="nav-arrow">▾</span></a>
+        <div class="dropdown">
+          <a href="#"><span class="dd-i">🪪</span> Business Cards</a>
+          <a href="#"><span class="dd-i">🖼️</span> Banners & Signs</a>
+          <a href="#"><span class="dd-i">👕</span> Apparel Printing</a>
+          <a href="#"><span class="dd-i">📦</span> Packaging</a>
+          <a href="#"><span class="dd-i">🪟</span> Stickers & Labels</a>
+          <a href="#"><span class="dd-i">📄</span> Flyers & Leaflets</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a class="nav-link" href="services.html">Services <span class="nav-arrow">▾</span></a>
+        <div class="dropdown">
+          <a href="#"><span class="dd-i">🎨</span> Design Service</a>
+          <a href="#"><span class="dd-i">⚡</span> Rush Printing</a>
+          <a href="#"><span class="dd-i">🏭</span> Bulk Orders</a>
+          <a href="#"><span class="dd-i">🚚</span> Nationwide Shipping</a>
+        </div>
+      </div>
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-link" href="blog.html">Blog</a>
+      <a class="nav-link" href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="searchBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <a href="cart.html" class="icon-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge">0</span>
+      </a>
+      <a href="quote.html" class="btn-quote">Get Quote</a>
+      <a href="shop.html" class="btn-order">Order Now</a>
+      <button class="hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a><a href="shop.html">Products</a>
+  <a href="services.html">Services</a><a href="about.html">About</a>
+  <a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+</div>
+
+<!-- SEARCH -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="s-close" id="searchClose">✕</div>
+  <div class="search-box">
+    <div class="s-input-row">
+      <input class="s-input" type="text" placeholder="Search products...">
+      <button class="s-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    </div>
+    <div class="s-tags">
+      <div class="stag">Business Cards</div><div class="stag">Banners</div>
+      <div class="stag">T-Shirts</div><div class="stag">Stickers</div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="success-icon">🎉</div>
+    <h2 class="success-title">Quote Submitted!</h2>
+    <p class="success-sub">Thank you! Our print specialists are reviewing your request and will send you a detailed quote within 2 business hours.</p>
+    <div class="quote-ref">Quote Ref: #QT-<span id="quoteRef">2026-4821</span></div>
+    <div class="success-btns">
+      <a href="shop.html" class="btn-success-primary">🛍️ Continue Shopping</a>
+      <a href="index.html" class="btn-success-sec">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="ph-glow"></div>
+  <div class="ph-grid"></div>
+  <div class="ph-inner">
+    <div class="ph-left">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a><span class="bc-sep">›</span><span style="color:white">Get a Quote</span>
+      </div>
+      <h1>Get a Custom Quote</h1>
+      <p>Need something specific? Tell us exactly what you need and our print specialists will send you a detailed, competitive quote within 2 business hours.</p>
+      <div class="ph-badges">
+        <div class="ph-badge"><span class="ph-badge-icon">⏱️</span> 2hr Response</div>
+        <div class="ph-badge"><span class="ph-badge-icon">💰</span> Best Price Match</div>
+        <div class="ph-badge"><span class="ph-badge-icon">🎨</span> Free Design Help</div>
+        <div class="ph-badge"><span class="ph-badge-icon">🚚</span> Free Shipping</div>
+      </div>
+    </div>
+    <div class="ph-right">
+      <div class="ph-stats-card">
+        <div class="ph-stats-title">Why Get a Quote?</div>
+        <div class="ph-stat-list">
+          <div class="ph-stat-item">
+            <div class="ph-stat-icon">📦</div>
+            <div><div class="ph-stat-num">BULK</div><div class="ph-stat-label">Save up to 60% on large quantity orders</div></div>
+          </div>
+          <div class="ph-stat-item">
+            <div class="ph-stat-icon">🎨</div>
+            <div><div class="ph-stat-num">CUSTOM</div><div class="ph-stat-label">Any size, material, or finish you need</div></div>
+          </div>
+          <div class="ph-stat-item">
+            <div class="ph-stat-icon">⚡</div>
+            <div><div class="ph-stat-num">RUSH</div><div class="ph-stat-label">Priority production when you need it fast</div></div>
+          </div>
+          <div class="ph-stat-item">
+            <div class="ph-stat-icon">🤝</div>
+            <div><div class="ph-stat-num">CORPORATE</div><div class="ph-stat-label">Account management for business clients</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS BAR -->
+<div class="how-bar">
+  <div class="how-bar-inner">
+    <div class="how-step"><div class="how-step-num">1</div><div class="how-step-text">Fill out the form below</div></div>
+    <div class="how-sep">›</div>
+    <div class="how-step"><div class="how-step-num">2</div><div class="how-step-text">We review your request</div></div>
+    <div class="how-sep">›</div>
+    <div class="how-step"><div class="how-step-num">3</div><div class="how-step-text">Get your quote in 2 hours</div></div>
+    <div class="how-sep">›</div>
+    <div class="how-step"><div class="how-step-num">4</div><div class="how-step-text">Approve & we start printing</div></div>
+  </div>
+</div>
+
+<!-- QUOTE SECTION -->
+<div class="quote-section">
+  <div class="container">
+    <div class="quote-wrap">
+
+      <!-- FORM -->
+      <div>
+
+        <!-- STEP 1: CONTACT -->
+        <div class="form-card reveal">
+          <div class="form-card-head">
+            <div class="form-card-num">1</div>
+            <div><h3>Your Contact Info</h3><p>So we can send your quote back to you</p></div>
+          </div>
+          <div class="form-card-body">
+            <div class="form-row cols-2">
+              <div class="form-group">
+                <label class="form-label">First Name <span class="req">*</span></label>
+                <input class="form-input" type="text" id="firstName" placeholder="John">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name <span class="req">*</span></label>
+                <input class="form-input" type="text" id="lastName" placeholder="Smith">
+              </div>
+            </div>
+            <div class="form-row cols-2">
+              <div class="form-group">
+                <label class="form-label">Email Address <span class="req">*</span></label>
+                <input class="form-input" type="email" id="email" placeholder="john@company.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input class="form-input" type="tel" id="phone" placeholder="+1 (555) 000-0000">
+              </div>
+            </div>
+            <div class="form-row cols-2">
+              <div class="form-group">
+                <label class="form-label">Company Name</label>
+                <input class="form-input" type="text" id="company" placeholder="Your Company LLC">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Your Role / Title</label>
+                <input class="form-input" type="text" id="role" placeholder="Marketing Manager">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: PRODUCT TYPE -->
+        <div class="form-card reveal d1">
+          <div class="form-card-head">
+            <div class="form-card-num">2</div>
+            <div><h3>Product Type</h3><p>What are you looking to print?</p></div>
+          </div>
+          <div class="form-card-body">
+            <div class="product-select-grid" id="prodGrid">
+              <div class="prod-sel-card active" onclick="selectProd(this)"><div class="prod-sel-icon">🪪</div><div class="prod-sel-name">Business Cards</div><div class="prod-sel-sub">Standard & premium cards</div></div>
+              <div class="prod-sel-card" onclick="selectProd(this)"><div class="prod-sel-icon">🖼️</div><div class="prod-sel-name">Banners & Signs</div><div class="prod-sel-sub">Indoor & outdoor</div></div>
+              <div class="prod-sel-card" onclick="selectProd(this)"><div class="prod-sel-icon">👕</div><div class="prod-sel-name">Apparel Printing</div><div class="prod-sel-sub">T-shirts, hoodies & more</div></div>
+              <div class="prod-sel-card" onclick="selectProd(this)"><div class="prod-sel-icon">🪟</div><div class="prod-sel-name">Stickers & Labels</div><div class="prod-sel-sub">Die-cut, kiss-cut & rolls</div></div>
+              <div class="prod-sel-card" onclick="selectProd(this)"><div class="prod-sel-icon">📄</div><div class="prod-sel-name">Flyers & Brochures</div><div class="prod-sel-sub">Half-fold, trifold & more</div></div>
+              <div class="prod-sel-card" onclick="selectProd(this)"><div class="prod-sel-icon">📦</div><div class="prod-sel-name">Custom Packaging</div><div class="prod-sel-sub">Boxes, bags & wrapping</div></div>
+              <div class="prod-sel-card" onclick="selectProd(this)"><div class="prod-sel-icon">🖨️</div><div class="prod-sel-name">Large Format</div><div class="prod-sel-sub">Posters, canvas & prints</div></div>
+              <div class="prod-sel-card" onclick="selectProd(this)"><div class="prod-sel-icon">📅</div><div class="prod-sel-name">Calendars</div><div class="prod-sel-sub">Wall & desk calendars</div></div>
+              <div class="prod-sel-card" onclick="selectProd(this)"><div class="prod-sel-icon">✨</div><div class="prod-sel-name">Something Else</div><div class="prod-sel-sub">Tell us what you need</div></div>
+            </div>
+            <div class="form-row" style="margin-top:16px">
+              <div class="form-group">
+                <label class="form-label">Product Description <span class="req">*</span></label>
+                <input class="form-input" type="text" id="productDesc" placeholder="e.g. Matte laminated business cards with rounded corners">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: SPECS -->
+        <div class="form-card reveal d1">
+          <div class="form-card-head">
+            <div class="form-card-num">3</div>
+            <div><h3>Print Specifications</h3><p>Tell us the exact specs you need</p></div>
+          </div>
+          <div class="form-card-body">
+            <!-- Quantity -->
+            <div class="form-group" style="margin-bottom:18px">
+              <label class="form-label">Quantity <span class="req">*</span></label>
+              <div class="qty-presets">
+                <div class="qty-preset" onclick="setQty(this,'100')">100</div>
+                <div class="qty-preset active" onclick="setQty(this,'250')">250</div>
+                <div class="qty-preset" onclick="setQty(this,'500')">500</div>
+                <div class="qty-preset" onclick="setQty(this,'1000')">1,000</div>
+                <div class="qty-preset" onclick="setQty(this,'2500')">2,500</div>
+                <div class="qty-preset" onclick="setQty(this,'5000')">5,000</div>
+                <div class="qty-preset" onclick="setQty(this,'custom')">Custom</div>
+              </div>
+              <input class="form-input" type="text" id="qtyInput" value="250" placeholder="Enter quantity">
+            </div>
+
+            <div class="form-row cols-2">
+              <div class="form-group">
+                <label class="form-label">Width</label>
+                <input class="form-input" type="text" id="width" placeholder='e.g. 3.5"'>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Height</label>
+                <input class="form-input" type="text" id="height" placeholder='e.g. 2"'>
+              </div>
+            </div>
+
+            <div class="form-row cols-2">
+              <div class="form-group">
+                <label class="form-label">Paper / Material</label>
+                <select class="form-select" id="material">
+                  <option>16pt Card Stock</option>
+                  <option>14pt Card Stock</option>
+                  <option>100lb Gloss Cover</option>
+                  <option>100lb Matte Cover</option>
+                  <option>Vinyl</option>
+                  <option>Canvas</option>
+                  <option>Fabric</option>
+                  <option>Not sure – need advice</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Print Sides</label>
+                <select class="form-select" id="sides">
+                  <option>Double-Sided (4/4)</option>
+                  <option>Single-Sided (4/0)</option>
+                  <option>Front Full Color / Back Black</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Finish -->
+            <div class="form-group" style="margin-bottom:18px">
+              <label class="form-label" style="margin-bottom:12px">Finish</label>
+              <div class="finish-opts">
+                <div class="finish-opt active" onclick="selectFinish(this)">Matte</div>
+                <div class="finish-opt" onclick="selectFinish(this)">Glossy</div>
+                <div class="finish-opt" onclick="selectFinish(this)">Soft Touch</div>
+                <div class="finish-opt" onclick="selectFinish(this)">Linen</div>
+                <div class="finish-opt" onclick="selectFinish(this)">UV Spot</div>
+                <div class="finish-opt" onclick="selectFinish(this)">Foil Stamping</div>
+                <div class="finish-opt" onclick="selectFinish(this)">Embossed</div>
+              </div>
+            </div>
+
+            <div class="form-row cols-2">
+              <div class="form-group">
+                <label class="form-label">Special Cuts</label>
+                <select class="form-select">
+                  <option>Standard Rectangle</option>
+                  <option>Rounded Corners</option>
+                  <option>Die-Cut (Custom Shape)</option>
+                  <option>Oval / Circle</option>
+                  <option>Square</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Color Mode</label>
+                <select class="form-select">
+                  <option>Full Color (CMYK)</option>
+                  <option>Pantone Match (PMS)</option>
+                  <option>Black & White</option>
+                  <option>1-2 Spot Colors</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Additional Details</label>
+              <textarea class="form-textarea" id="details" placeholder="e.g. Please match our Pantone 021 C orange exactly. Cards need to have soft touch coating with spot UV on the logo only. Rounded corners 0.25"."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4: TIMELINE -->
+        <div class="form-card reveal d2">
+          <div class="form-card-head">
+            <div class="form-card-num">4</div>
+            <div><h3>Timeline & Delivery</h3><p>When do you need your order?</p></div>
+          </div>
+          <div class="form-card-body">
+            <div class="timeline-opts">
+              <div class="timeline-opt" onclick="selectTimeline(this)">
+                <div class="to-icon">📅</div>
+                <div class="to-name">Standard</div>
+                <div class="to-days">5–7 Business Days</div>
+                <div class="to-price">Best Price</div>
+              </div>
+              <div class="timeline-opt active" onclick="selectTimeline(this)">
+                <div class="to-icon">🚀</div>
+                <div class="to-name">Expedited</div>
+                <div class="to-days">3–4 Business Days</div>
+                <div class="to-price">+10%</div>
+              </div>
+              <div class="timeline-opt" onclick="selectTimeline(this)">
+                <div class="to-icon">⚡</div>
+                <div class="to-name">Rush</div>
+                <div class="to-days">1–2 Business Days</div>
+                <div class="to-price">+25%</div>
+              </div>
+              <div class="timeline-opt" onclick="selectTimeline(this)">
+                <div class="to-icon">🔥</div>
+                <div class="to-name">Same Day</div>
+                <div class="to-days">Today (order by 10am)</div>
+                <div class="to-price">+50%</div>
+              </div>
+            </div>
+            <div class="form-row cols-2" style="margin-top:20px">
+              <div class="form-group">
+                <label class="form-label">Required By Date</label>
+                <input class="form-input" type="date" id="requiredDate">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Delivery Location</label>
+                <select class="form-select">
+                  <option>United States</option>
+                  <option>Canada</option>
+                  <option>United Kingdom</option>
+                  <option>Australia</option>
+                  <option>International</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5: ARTWORK -->
+        <div class="form-card reveal d2">
+          <div class="form-card-head">
+            <div class="form-card-num">5</div>
+            <div><h3>Artwork & Files</h3><p>Upload your design files if you have them ready</p></div>
+          </div>
+          <div class="form-card-body">
+            <div class="file-upload" id="fileUpload">
+              <input type="file" multiple accept=".pdf,.ai,.eps,.psd,.png,.jpg,.jpeg,.svg" onchange="handleFiles(this.files)">
+              <div class="fu-icon">🎨</div>
+              <div class="fu-text">Drag & Drop your artwork here</div>
+              <div class="fu-sub">PDF, AI, EPS, PSD, PNG, JPG, SVG<br>Files should be 300 DPI or higher for best quality</div>
+              <div class="fu-btn">Browse & Upload Files</div>
+            </div>
+            <div class="file-list" id="fileList"></div>
+
+            <div style="margin-top:22px;padding:18px;background:rgba(255,92,0,.05);border:1.5px solid rgba(255,92,0,.2);border-radius:12px">
+              <div style="font-weight:800;font-size:14px;margin-bottom:8px;color:var(--orange)">🎨 Need Design Help?</div>
+              <p style="font-size:13.5px;color:var(--mid);line-height:1.75;margin-bottom:14px">Our in-house design team can create or refine your artwork for a small additional fee. Just let us know what you need below.</p>
+              <div class="finish-opts">
+                <div class="finish-opt" onclick="selectFinish(this)">I have artwork ready</div>
+                <div class="finish-opt active" onclick="selectFinish(this)">I need design help</div>
+                <div class="finish-opt" onclick="selectFinish(this)">I need minor edits</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 6: BUDGET & SUBMIT -->
+        <div class="form-card reveal d3">
+          <div class="form-card-head">
+            <div class="form-card-num">6</div>
+            <div><h3>Budget & Final Notes</h3><p>Help us give you the best possible quote</p></div>
+          </div>
+          <div class="form-card-body">
+            <div class="form-row cols-2">
+              <div class="form-group">
+                <label class="form-label">Estimated Budget</label>
+                <select class="form-select" id="budget">
+                  <option>Under $100</option>
+                  <option>$100 – $500</option>
+                  <option selected>$500 – $1,000</option>
+                  <option>$1,000 – $5,000</option>
+                  <option>$5,000+</option>
+                  <option>Flexible – just get me the best price</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">How Did You Find Us?</label>
+                <select class="form-select" id="source">
+                  <option>Google Search</option>
+                  <option>Social Media</option>
+                  <option>Word of Mouth</option>
+                  <option>Existing Customer</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom:22px">
+              <label class="form-label">Additional Notes or Questions</label>
+              <textarea class="form-textarea" placeholder="Any other details, questions, or special requests? The more you tell us, the more accurate your quote will be."></textarea>
+            </div>
+
+            <div class="agree-row" id="agreeRow" onclick="toggleAgree()">
+              <div class="agree-box" id="agreeBox"></div>
+              <p class="agree-text">I agree to PrintCraft's <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>. I understand this is a quote request, not a purchase order. <span class="req">*</span></p>
+            </div>
+
+            <button class="btn-submit-quote" onclick="submitQuote()">
+              📋 Submit Quote Request — Free & No Obligation
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="quote-sidebar">
+
+        <!-- Contact methods -->
+        <div class="sb-card reveal from-right">
+          <div class="sb-title">Prefer to Talk?</div>
+          <div class="contact-methods">
+            <div class="contact-method">
+              <div class="cm-icon">📞</div>
+              <div><div class="cm-label">Call Us</div><div class="cm-value">+1 (800) PRINT-IT</div></div>
+            </div>
+            <div class="contact-method">
+              <div class="cm-icon">✉️</div>
+              <div><div class="cm-label">Email Us</div><div class="cm-value">quotes@printcraft.com</div></div>
+            </div>
+            <div class="contact-method">
+              <div class="cm-icon">💬</div>
+              <div><div class="cm-label">Live Chat</div><div class="cm-value">Available 8am–8pm EST</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Why choose us -->
+        <div class="sb-card reveal from-right d1">
+          <div class="sb-title">Why PrintCraft?</div>
+          <div class="why-list">
+            <div class="why-item"><div class="why-icon">⚡</div>Quote in 2 business hours — faster than any competitor</div>
+            <div class="why-item"><div class="why-icon">💰</div>Best Price Match Guarantee — we'll beat any written quote</div>
+            <div class="why-item"><div class="why-icon">🔄</div>Free Reprint Policy — if it's wrong, we fix it for free</div>
+            <div class="why-item"><div class="why-icon">🎨</div>In-house design team available for all projects</div>
+            <div class="why-item"><div class="why-icon">🚚</div>Free shipping on all orders to the continental US</div>
+            <div class="why-item"><div class="why-icon">📦</div>Bulk discounts starting at just 250 units</div>
+            <div class="why-item"><div class="why-icon">⭐</div>4.9 star rating across 2,400+ verified reviews</div>
+          </div>
+        </div>
+
+        <!-- Mini testimonials -->
+        <div class="sb-card reveal from-right d2">
+          <div class="sb-title">What Clients Say</div>
+          <div class="mini-testimonials">
+            <div class="mini-testi">
+              <div class="mini-stars">★★★★★</div>
+              <div class="mini-testi-text">"Got a quote within 1 hour. Prices were 20% below everyone else. Cards arrived in 3 days and looked incredible."</div>
+              <div class="mini-testi-author">
+                <div class="mta-avatar" style="background:var(--orange)">MK</div>
+                <div><div class="mta-name">Michael Kim</div><div class="mta-role">Brand Manager, Nike</div></div>
+              </div>
+            </div>
+            <div class="mini-testi">
+              <div class="mini-stars">★★★★★</div>
+              <div class="mini-testi-text">"We order 10,000+ business cards every quarter. PrintCraft is the only vendor we trust. Fast, reliable, always perfect."</div>
+              <div class="mini-testi-author">
+                <div class="mta-avatar" style="background:#6C5CE7">SR</div>
+                <div><div class="mta-name">Sarah Rodriguez</div><div class="mta-role">Operations Director, TechCorp</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ mini -->
+        <div class="sb-card reveal from-right d3">
+          <div class="sb-title">Quick FAQs</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div>
+              <div style="font-weight:800;font-size:14px;margin-bottom:4px;color:var(--dark)">How long does a quote take?</div>
+              <div style="font-size:13px;color:var(--mid);line-height:1.65">We respond within 2 business hours during weekdays (8am–8pm EST).</div>
+            </div>
+            <div style="height:1px;background:var(--border)"></div>
+            <div>
+              <div style="font-weight:800;font-size:14px;margin-bottom:4px;color:var(--dark)">Is the quote free?</div>
+              <div style="font-size:13px;color:var(--mid);line-height:1.65">Yes, completely free and no obligation to purchase.</div>
+            </div>
+            <div style="height:1px;background:var(--border)"></div>
+            <div>
+              <div style="font-weight:800;font-size:14px;margin-bottom:4px;color:var(--dark)">Can I get a bulk discount?</div>
+              <div style="font-size:13px;color:var(--mid);line-height:1.65">Absolutely. We offer volume pricing starting at 250 units, with savings up to 60%.</div>
+            </div>
+            <div style="height:1px;background:var(--border)"></div>
+            <div>
+              <div style="font-weight:800;font-size:14px;margin-bottom:4px;color:var(--dark)">What file formats do you accept?</div>
+              <div style="font-size:13px;color:var(--mid);line-height:1.65">PDF, AI, EPS, PSD, PNG, JPG at 300 DPI or higher. We can also help set up your files.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <div class="mi"><span class="mstar">★</span> FREE QUOTES IN 2 HOURS</div>
+    <div class="mi"><span class="mstar">★</span> BULK DISCOUNTS AVAILABLE</div>
+    <div class="mi"><span class="mstar">★</span> FREE SHIPPING</div>
+    <div class="mi"><span class="mstar">★</span> BEST PRICE MATCH</div>
+    <div class="mi"><span class="mstar">★</span> FREE QUOTES IN 2 HOURS</div>
+    <div class="mi"><span class="mstar">★</span> BULK DISCOUNTS AVAILABLE</div>
+    <div class="mi"><span class="mstar">★</span> FREE SHIPPING</div>
+    <div class="mi"><span class="mstar">★</span> BEST PRICE MATCH</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div class="foot-grid">
+      <div class="foot-logo">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></div>
+          <div class="logo-text" style="color:white">Print<span>Craft</span></div>
+        </a>
+        <p>Your trusted partner for premium custom printing. Quality you can see, service you can feel.</p>
+        <div class="foot-socials">
+          <a href="#" class="fsoc">f</a><a href="#" class="fsoc">in</a><a href="#" class="fsoc">tw</a><a href="#" class="fsoc">ig</a>
+        </div>
+      </div>
+      <div><div class="fcol-title">Quick Links</div><div class="flinks"><a href="index.html">Home</a><a href="about.html">About Us</a><a href="shop.html">Products</a><a href="services.html">Services</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></div></div>
+      <div><div class="fcol-title">Products</div><div class="flinks"><a href="#">Business Cards</a><a href="#">Banners</a><a href="#">T-Shirts</a><a href="#">Flyers</a><a href="#">Stickers</a><a href="#">Packaging</a></div></div>
+      <div><div class="fcol-title">Contact</div><div class="fcon-row"><span class="fcon-icon">📞</span><span>+1 (800) PRINT-IT</span></div><div class="fcon-row"><span class="fcon-icon">✉️</span><span>hello@printcraft.com</span></div><div class="fcon-row"><span class="fcon-icon">🕐</span><span>Mon–Fri: 8am–8pm EST</span></div></div>
+    </div>
+  </div>
+  <div class="foot-bottom"><div class="foot-bottom-inner"><span>© 2026 PrintCraft. All rights reserved.</span><div class="fbot-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div></div></div>
+</footer>
+
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+let agreed = false;
+let uploadedFiles = [];
+
+/* PRODUCT SELECT */
+function selectProd(el) {
+  document.querySelectorAll('.prod-sel-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* QTY PRESETS */
+function setQty(btn, val) {
+  document.querySelectorAll('.qty-preset').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (val === 'custom') {
+    document.getElementById('qtyInput').value = '';
+    document.getElementById('qtyInput').focus();
+  } else {
+    document.getElementById('qtyInput').value = val;
+  }
+}
+
+/* FINISH */
+function selectFinish(el) {
+  el.closest('.finish-opts') ? el.closest('.finish-opts').querySelectorAll('.finish-opt').forEach(o => o.classList.remove('active')) : null;
+  el.classList.add('active');
+}
+
+/* TIMELINE */
+function selectTimeline(el) {
+  document.querySelectorAll('.timeline-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* FILE UPLOAD */
+function handleFiles(files) {
+  [...files].forEach(f => { if (!uploadedFiles.find(x => x.name === f.name)) uploadedFiles.push(f); });
+  renderFileList();
+}
+function renderFileList() {
+  document.getElementById('fileList').innerHTML = uploadedFiles.map((f, i) => `
+    <div class="file-item">
+      <span class="file-item-icon">📄</span>
+      <span class="file-name">${f.name}</span>
+      <span class="file-size">${(f.size / 1024).toFixed(1)} KB</span>
+      <span class="file-rm" onclick="removeFile(${i})">✕</span>
+    </div>`).join('');
+}
+function removeFile(i) { uploadedFiles.splice(i, 1); renderFileList(); }
+
+/* DRAG & DROP */
+const fu = document.getElementById('fileUpload');
+fu.addEventListener('dragover', e => { e.preventDefault(); fu.classList.add('drag'); });
+fu.addEventListener('dragleave', () => fu.classList.remove('drag'));
+fu.addEventListener('drop', e => { e.preventDefault(); fu.classList.remove('drag'); handleFiles(e.dataTransfer.files); });
+
+/* AGREE */
+function toggleAgree() {
+  agreed = !agreed;
+  document.getElementById('agreeRow').classList.toggle('checked', agreed);
+  document.getElementById('agreeBox').textContent = agreed ? '✓' : '';
+}
+
+/* SUBMIT */
+function submitQuote() {
+  const firstName = document.getElementById('firstName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const productDesc = document.getElementById('productDesc').value.trim();
+
+  if (!firstName) { toast('⚠️ Please enter your first name'); return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast('⚠️ Please enter a valid email address'); return; }
+  if (!productDesc) { toast('⚠️ Please describe the product you need'); return; }
+  if (!agreed) { toast('⚠️ Please agree to the Terms & Conditions'); return; }
+
+  const btn = document.querySelector('.btn-submit-quote');
+  btn.disabled = true;
+  btn.innerHTML = '<span style="animation:spin .8s linear infinite;display:inline-block">⏳</span> Submitting your quote...';
+
+  setTimeout(() => {
+    document.getElementById('quoteRef').textContent = '2026-' + Math.floor(Math.random() * 9000 + 1000);
+    document.getElementById('successOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    btn.disabled = false;
+    btn.innerHTML = '📋 Submit Quote Request — Free & No Obligation';
+  }, 2000);
+}
+
+/* SEARCH */
+const SO = document.getElementById('searchOverlay');
+document.getElementById('searchBtn').onclick = () => { SO.classList.add('open'); document.body.style.overflow = 'hidden'; };
+document.getElementById('searchClose').onclick = () => { SO.classList.remove('open'); document.body.style.overflow = ''; };
+SO.onclick = e => { if (e.target === SO) { SO.classList.remove('open'); document.body.style.overflow = ''; } };
+
+/* MOBILE MENU */
+const MB = document.getElementById('menuBtn'), MM = document.getElementById('mobileMenu');
+MB.onclick = function () { this.classList.toggle('open'); MM.classList.toggle('open'); document.body.style.overflow = this.classList.contains('open') ? 'hidden' : ''; };
+
+/* ESC */
+document.onkeydown = e => { if (e.key === 'Escape') { SO.classList.remove('open'); MM.classList.remove('open'); MB.classList.remove('open'); document.body.style.overflow = ''; } };
+
+/* SCROLL */
+window.onscroll = () => {
+  document.getElementById('site-header').classList.toggle('scrolled', scrollY > 50);
+  document.getElementById('btt').classList.toggle('vis', scrollY > 440);
+};
+
+/* REVEAL */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: .08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* TOAST */
+let tTimer;
+function toast(msg) {
+  clearTimeout(tTimer);
+  const el = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  el.classList.add('show');
+  tTimer = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+/* SET MIN DATE */
+const dateInput = document.getElementById('requiredDate');
+if (dateInput) {
+  const today = new Date();
+  today.setDate(today.getDate() + 3);
+  dateInput.min = today.toISOString().split('T')[0];
+}
+</script>
+</body>
+</html>

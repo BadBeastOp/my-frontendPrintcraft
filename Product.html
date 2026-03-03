@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matte Finish Business Cards – PrintCraft</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#FF5C00;--orange-dark:#D94C00;--dark:#0f0f0f;--mid:#666;--light:#f5f5f5;--white:#fff;--border:#e8e8e8;--ease:cubic-bezier(.25,.46,.45,.94)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;color:var(--dark);background:var(--white);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em;line-height:1.05}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.from-left{transform:translateX(-36px)}
+.reveal.from-right{transform:translateX(36px)}
+.reveal.visible{opacity:1!important;transform:none!important}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* TOPBAR */
+.topbar{background:var(--dark);color:#777;font-size:12.5px;padding:9px 0}
+.topbar-inner{max-width:1320px;margin:auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center}
+.topbar-left{display:flex;gap:20px;align-items:center}
+.topbar-div{width:1px;height:12px;background:#333}
+.topbar a{color:#666;transition:color .2s}.topbar a:hover{color:var(--orange)}
+.topbar-right{display:flex;gap:18px}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 4px 28px rgba(0,0,0,.09)}
+.header-inner{max-width:1320px;margin:auto;padding:0 28px;height:74px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-icon{width:42px;height:42px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center;transition:transform .35s,box-shadow .35s}
+.logo:hover .logo-icon{transform:rotate(-8deg) scale(1.1);box-shadow:0 6px 22px rgba(255,92,0,.4)}
+.logo-icon svg{width:22px;height:22px;fill:white}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px}
+.logo-text span{color:var(--orange)}
+nav{display:flex;gap:2px;align-items:center;flex:1;justify-content:center}
+.nav-item{position:relative}
+.nav-link{display:flex;align-items:center;gap:4px;padding:8px 13px;border-radius:8px;font-size:13px;font-weight:700;color:var(--dark);text-transform:uppercase;letter-spacing:.07em;transition:all .2s}
+.nav-link:hover,.nav-link.active{color:var(--orange);background:rgba(255,92,0,.07)}
+.nav-arrow{font-size:9px;transition:transform .25s}
+.nav-item:hover .nav-arrow{transform:rotate(180deg)}
+.dropdown{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(10px);background:white;border-radius:14px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.13);padding:8px;min-width:200px;opacity:0;visibility:hidden;transition:all .28s var(--ease);z-index:300}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.dropdown a{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:8px;font-size:13px;font-weight:500;transition:all .18s}
+.dropdown a:hover{background:rgba(255,92,0,.07);color:var(--orange);padding-left:18px}
+.dd-i{font-size:14px;width:20px;text-align:center}
+.header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.icon-btn{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--dark);transition:all .2s;position:relative}
+.icon-btn:hover{background:var(--light);color:var(--orange)}
+.icon-btn svg{width:20px;height:20px}
+.cart-badge{position:absolute;top:4px;right:4px;background:var(--orange);color:white;font-size:9px;font-weight:900;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.cart-badge.bump{transform:scale(1.6)}
+.btn-quote{padding:9px 17px;border:2px solid var(--orange);color:var(--orange);border-radius:9px;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;transition:all .22s}
+.btn-quote:hover{background:var(--orange);color:white}
+.btn-order{padding:9px 19px;background:var(--orange);color:white;border-radius:9px;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;transition:all .22s;box-shadow:0 4px 16px rgba(255,92,0,.3)}
+.btn-order:hover{background:var(--orange-dark);transform:translateY(-2px)}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:8px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dark);border-radius:2px;transition:all .32s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:74px;left:0;right:0;bottom:0;background:white;z-index:999;padding:24px 28px;transform:translateX(100%);transition:transform .4s var(--ease);overflow-y:auto}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu a{display:block;padding:15px 0;border-bottom:1px solid var(--border);font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1.5px;transition:color .2s,padding-left .22s}
+.mobile-menu a:hover{color:var(--orange);padding-left:10px}
+
+/* CART DRAWER */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1100;opacity:0;visibility:hidden;transition:all .3s}
+.cart-overlay.open{opacity:1;visibility:visible}
+.cart-drawer{position:fixed;right:0;top:0;bottom:0;width:420px;background:white;z-index:1101;transform:translateX(110%);transition:transform .42s var(--ease);display:flex;flex-direction:column;box-shadow:-12px 0 70px rgba(0,0,0,.18)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:24px 28px;border-bottom:1px solid var(--border)}
+.cart-head h3{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px}
+.cart-x{width:36px;height:36px;border-radius:8px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:17px;transition:all .2s}
+.cart-x:hover{background:#ff5c0018;color:var(--orange)}
+.cart-body{flex:1;overflow-y:auto;padding:18px 28px}
+.cart-item{display:flex;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--border);animation:itemIn .3s ease}
+@keyframes itemIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+.ci-thumb{width:68px;height:68px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:1px solid var(--border)}
+.ci-name{font-weight:800;font-size:13.5px;margin-bottom:3px}
+.ci-cat{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px}
+.qty-row{display:flex;align-items:center;gap:10px}
+.qty-btn{width:26px;height:26px;border-radius:6px;background:var(--light);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.qty-btn:hover{background:var(--orange);color:white}
+.qty-n{font-weight:800;font-size:14px;min-width:20px;text-align:center}
+.ci-price{font-weight:900;font-size:16px;color:var(--orange);flex-shrink:0}
+.ci-rm{font-size:17px;color:#ddd;transition:color .2s;flex-shrink:0}
+.ci-rm:hover{color:#f33}
+.cart-foot{padding:20px 28px;border-top:1px solid var(--border)}
+.ct-row{display:flex;justify-content:space-between;font-size:14px;color:var(--mid);margin-bottom:6px}
+.ct-row.big{font-size:20px;font-weight:900;color:var(--dark);margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.ct-row.big span:last-child{color:var(--orange)}
+.btn-chk{display:block;width:100%;padding:16px;background:var(--orange);color:white;border-radius:12px;font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;text-align:center;margin-top:18px;transition:all .25s;box-shadow:0 6px 22px rgba(255,92,0,.35)}
+.btn-chk:hover{background:var(--orange-dark);transform:translateY(-2px)}
+.btn-cont{display:block;width:100%;padding:13px;border:2px solid var(--border);color:var(--mid);border-radius:12px;font-size:13px;font-weight:700;text-align:center;margin-top:10px;transition:all .2s}
+.btn-cont:hover{border-color:var(--orange);color:var(--orange)}
+
+/* SEARCH OVERLAY */
+.search-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1200;display:flex;align-items:flex-start;justify-content:center;padding-top:120px;opacity:0;visibility:hidden;transition:all .3s}
+.search-overlay.open{opacity:1;visibility:visible}
+.search-box{width:100%;max-width:660px;margin:0 20px;transform:translateY(-20px);transition:transform .4s var(--ease)}
+.search-overlay.open .search-box{transform:translateY(0)}
+.s-input-row{position:relative}
+.s-input{width:100%;padding:22px 60px 22px 24px;background:white;border:none;border-radius:16px;font-size:19px;font-family:'Outfit',sans-serif;outline:none;color:var(--dark)}
+.s-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:44px;height:44px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center;color:white}
+.s-tags{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.stag{padding:7px 15px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:white;border-radius:100px;font-size:12.5px;cursor:pointer;transition:all .2s}
+.stag:hover{background:var(--orange);border-color:var(--orange)}
+.s-close{position:fixed;top:28px;right:28px;width:46px;height:46px;background:rgba(255,255,255,.1);color:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer}
+.s-close:hover{background:rgba(255,255,255,.2)}
+
+/* BREADCRUMB */
+.breadcrumb-bar{background:var(--light);border-bottom:1px solid var(--border);padding:14px 0}
+.breadcrumb{max-width:1320px;margin:auto;padding:0 28px;display:flex;align-items:center;gap:8px;font-size:13px;color:#999}
+.breadcrumb a{color:#999;transition:color .2s}.breadcrumb a:hover{color:var(--orange)}
+.bc-sep{color:#ccc}
+.breadcrumb span{color:var(--dark);font-weight:600}
+
+/* PRODUCT SECTION */
+.product-section{padding:60px 0}
+.container{max-width:1320px;margin:auto;padding:0 28px}
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+
+/* GALLERY */
+.gallery{position:sticky;top:94px}
+.main-img{background:linear-gradient(135deg,#fff5f0,#ffd9c4);border-radius:22px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:160px;margin-bottom:16px;overflow:hidden;position:relative;cursor:zoom-in;transition:box-shadow .3s}
+.main-img:hover{box-shadow:0 20px 60px rgba(0,0,0,.12)}
+.main-img-icon{transition:transform .5s var(--ease)}
+.main-img:hover .main-img-icon{transform:scale(1.08)}
+.main-img-badge{position:absolute;top:20px;left:20px;background:var(--orange);color:white;font-size:11px;font-weight:900;padding:5px 13px;border-radius:100px;text-transform:uppercase;letter-spacing:.07em}
+.thumbs-row{display:flex;gap:12px}
+.thumb{width:80px;height:80px;border-radius:12px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer;transition:all .25s;flex-shrink:0;overflow:hidden}
+.thumb:hover{border-color:var(--orange);transform:scale(1.05)}
+.thumb.active{border-color:var(--orange);box-shadow:0 4px 16px rgba(255,92,0,.25)}
+
+/* PRODUCT INFO */
+.product-info{}
+.pi-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.pi-cat{font-size:12px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.12em}
+.pi-badge{padding:3px 10px;background:rgba(255,92,0,.1);color:var(--orange);border-radius:100px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.pi-name{font-size:clamp(32px,4vw,50px);color:var(--dark);margin-bottom:14px;line-height:1.05}
+.pi-rating{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.pi-stars{color:#FFC107;font-size:16px;letter-spacing:2px}
+.pi-rc{font-size:13.5px;color:var(--mid)}
+.pi-rc a{color:var(--orange);font-weight:700}
+.pi-price{font-size:42px;font-weight:900;color:var(--orange);margin-bottom:6px;line-height:1}
+.pi-price del{font-size:22px;color:#ccc;font-weight:400;margin-left:10px}
+.pi-save{font-size:13px;color:#00b090;font-weight:700;margin-bottom:20px}
+.pi-desc{font-size:15px;color:var(--mid);line-height:1.8;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+
+/* Options */
+.opt-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--dark);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.opt-selected{color:var(--orange);font-weight:700;text-transform:none;letter-spacing:0;font-size:12px}
+.opts-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.opt-btn{padding:8px 16px;border:2px solid var(--border);border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;transition:all .22s;background:white}
+.opt-btn:hover{border-color:var(--orange);color:var(--orange)}
+.opt-btn.active{border-color:var(--orange);color:var(--orange);background:rgba(255,92,0,.07);font-weight:800}
+.opt-btn.disabled{opacity:.35;pointer-events:none;text-decoration:line-through}
+
+/* Color options */
+.color-opts{display:flex;gap:10px;margin-bottom:22px}
+.color-swatch{width:34px;height:34px;border-radius:50%;cursor:pointer;transition:all .22s;position:relative;border:3px solid transparent}
+.color-swatch:hover{transform:scale(1.1)}
+.color-swatch.active{border-color:var(--orange);box-shadow:0 0 0 2px white inset}
+
+/* Qty & CTA */
+.qty-cta{display:flex;gap:14px;align-items:center;margin-bottom:20px}
+.qty-control{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:12px;overflow:hidden}
+.qty-control button{width:46px;height:52px;font-size:20px;font-weight:800;transition:all .22s}
+.qty-control button:hover{background:var(--orange);color:white}
+.qty-control span{width:56px;text-align:center;font-weight:800;font-size:17px}
+.btn-add-cart{flex:1;padding:16px 28px;background:var(--orange);color:white;border-radius:12px;font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;transition:all .28s;box-shadow:0 6px 22px rgba(255,92,0,.35)}
+.btn-add-cart:hover{background:var(--orange-dark);transform:translateY(-3px);box-shadow:0 12px 34px rgba(255,92,0,.45)}
+.btn-wish{width:52px;height:52px;border:2px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;transition:all .22s;flex-shrink:0}
+.btn-wish:hover,.btn-wish.wished{border-color:var(--orange);color:var(--orange)}
+.btn-buy-now{width:100%;padding:15px;border:2px solid var(--dark);color:var(--dark);border-radius:12px;font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;transition:all .28s;margin-bottom:24px}
+.btn-buy-now:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,92,0,.04)}
+
+/* Perks row */
+.perks-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:24px}
+.perk-item{text-align:center;font-size:12.5px;color:var(--mid)}
+.perk-icon{font-size:24px;display:block;margin-bottom:6px}
+.perk-item strong{display:block;font-size:13px;color:var(--dark);margin-bottom:2px}
+
+/* Share */
+.share-row{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--mid)}
+.share-btn{width:36px;height:36px;border-radius:9px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;transition:all .22s}
+.share-btn:hover{background:var(--orange);color:white}
+
+/* TABS SECTION */
+.tabs-section{padding:60px 0;border-top:1px solid var(--border)}
+.tabs-nav{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:48px;overflow-x:auto}
+.tab-btn{padding:14px 28px;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);position:relative;white-space:nowrap;transition:color .22s}
+.tab-btn::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--orange);transform:scaleX(0);transition:transform .28s var(--ease)}
+.tab-btn.active{color:var(--orange)}
+.tab-btn.active::after{transform:scaleX(1)}
+.tab-btn:hover{color:var(--orange)}
+.tab-panel{display:none;animation:fadeIn .4s ease}
+.tab-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Description tab */
+.desc-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.desc-text h3{font-size:28px;margin-bottom:16px}
+.desc-text p{font-size:15px;color:var(--mid);line-height:1.85;margin-bottom:16px}
+.desc-list{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.desc-list li{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--mid)}
+.desc-list li::before{content:'✓';width:22px;height:22px;border-radius:6px;background:rgba(255,92,0,.1);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0}
+.desc-visual{background:var(--light);border-radius:20px;padding:40px;text-align:center;font-size:100px}
+
+/* Specs tab */
+.specs-table{width:100%;border-collapse:collapse}
+.specs-table tr{border-bottom:1px solid var(--border)}
+.specs-table tr:last-child{border-bottom:none}
+.specs-table td{padding:16px 20px;font-size:14px}
+.specs-table td:first-child{font-weight:700;color:var(--dark);width:200px;background:var(--light)}
+.specs-table td:last-child{color:var(--mid)}
+.specs-table tr:nth-child(even) td:first-child{background:#f0f0f0}
+
+/* Reviews tab */
+.reviews-summary{display:grid;grid-template-columns:260px 1fr;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border)}
+.rating-big{text-align:center;background:var(--light);border-radius:20px;padding:36px 24px}
+.rb-num{font-family:'Bebas Neue',sans-serif;font-size:80px;color:var(--orange);line-height:1}
+.rb-stars{color:#FFC107;font-size:24px;letter-spacing:3px;margin-bottom:8px}
+.rb-count{font-size:13px;color:var(--mid)}
+.rating-bars{display:flex;flex-direction:column;gap:10px;justify-content:center}
+.rbar-row{display:flex;align-items:center;gap:12px;font-size:13px}
+.rbar-label{width:50px;color:var(--mid);white-space:nowrap}
+.rbar-track{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.rbar-fill{height:100%;background:var(--orange);border-radius:4px;transition:width 1.2s var(--ease)}
+.rbar-pct{width:36px;text-align:right;font-weight:700;font-size:12px;color:var(--mid)}
+.review-form-btn{padding:12px 24px;background:var(--orange);color:white;border-radius:10px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;transition:all .22s}
+.review-form-btn:hover{background:var(--orange-dark)}
+
+.reviews-list{display:flex;flex-direction:column;gap:28px}
+.review-card{padding:28px;border:1px solid var(--border);border-radius:18px;transition:all .3s}
+.review-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.07);border-color:var(--orange)}
+.rc-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.rc-avatar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:white;flex-shrink:0}
+.rc-name{font-weight:800;font-size:15px;margin-bottom:3px}
+.rc-date{font-size:12px;color:#bbb}
+.rc-stars{color:#FFC107;font-size:14px;letter-spacing:1px;margin-bottom:10px}
+.rc-text{font-size:14px;color:var(--mid);line-height:1.75}
+.rc-helpful{font-size:12px;color:#bbb;margin-top:12px}
+.rc-helpful button{color:var(--orange);font-size:12px;font-weight:700;transition:opacity .2s}
+.rc-helpful button:hover{opacity:.7}
+.rc-verified{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:#00b090;font-weight:700;margin-left:10px}
+
+/* RELATED PRODUCTS */
+.related-section{padding:60px 0;background:var(--light)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--orange);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;margin-bottom:14px}
+.eyebrow::before{content:'';width:26px;height:2px;background:var(--orange);border-radius:2px}
+.sec-title{font-size:clamp(32px,4vw,50px);color:var(--dark);margin-bottom:36px}
+.related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.rel-card{border-radius:16px;overflow:hidden;background:white;border:1px solid var(--border);transition:all .38s var(--ease)}
+.rel-card:hover{transform:translateY(-8px);box-shadow:0 22px 55px rgba(0,0,0,.11);border-color:var(--orange)}
+.rel-img{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:60px;transition:transform .5s var(--ease)}
+.rel-card:hover .rel-img{transform:scale(1.08)}
+.rel-info{padding:16px 18px 20px}
+.rel-cat{font-size:11px;color:#bbb;text-transform:uppercase;letter-spacing:.09em;margin-bottom:5px}
+.rel-name{font-weight:800;font-size:14px;color:var(--dark);margin-bottom:10px;line-height:1.3}
+.rel-foot{display:flex;align-items:center;justify-content:space-between}
+.rel-price{font-size:18px;font-weight:900;color:var(--orange)}
+.rel-add{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;background:var(--orange);color:white;border-radius:7px;font-size:11.5px;font-weight:800;text-transform:uppercase;transition:all .22s;border:none;cursor:pointer}
+.rel-add:hover{background:var(--orange-dark)}
+
+/* MARQUEE */
+.marquee-bar{background:var(--orange);overflow:hidden;padding:12px 0}
+.marquee-track{display:flex;width:max-content;animation:mscroll 22s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.mi{display:flex;align-items:center;gap:14px;padding:0 28px;font-family:'Bebas Neue',sans-serif;font-size:18px;color:white;letter-spacing:3px;white-space:nowrap}
+.mstar{font-size:10px;color:rgba(255,255,255,.45)}
+@keyframes mscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* FOOTER */
+footer{background:#080808;color:#555}
+.foot-top{padding:70px 0 50px}
+.foot-grid{max-width:1320px;margin:auto;padding:0 28px;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:60px}
+.foot-logo p{font-size:14px;line-height:1.85;margin:20px 0 28px;max-width:290px;color:#444}
+.foot-socials{display:flex;gap:9px}
+.fsoc{width:38px;height:38px;border-radius:10px;background:#141414;border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;font-size:13px;color:#444;font-weight:800;transition:all .28s}
+.fsoc:hover{background:var(--orange);border-color:var(--orange);color:white;transform:translateY(-4px)}
+.fcol-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:white;letter-spacing:1.5px;margin-bottom:22px}
+.flinks{display:flex;flex-direction:column;gap:11px}
+.flinks a{font-size:13.5px;color:#444;transition:all .22s;display:flex;align-items:center}
+.flinks a::before{content:'';width:0;height:1.5px;background:var(--orange);transition:width .25s;margin-right:0}
+.flinks a:hover{color:white;padding-left:12px}
+.flinks a:hover::before{width:8px;margin-right:4px}
+.fcon-row{display:flex;gap:12px;margin-bottom:16px;font-size:13.5px;color:#444}
+.fcon-icon{color:var(--orange);flex-shrink:0}
+.foot-bottom{border-top:1px solid #141414;padding:22px 0}
+.foot-bottom-inner{max-width:1320px;margin:auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#2a2a2a}
+.fbot-links{display:flex;gap:22px}
+.fbot-links a{color:#333;transition:color .2s}
+.fbot-links a:hover{color:var(--orange)}
+
+/* TOAST */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dark);color:white;border-radius:13px;padding:14px 22px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:10px;box-shadow:0 12px 44px rgba(0,0,0,.35);z-index:2000;transition:all .42s var(--ease);opacity:0;pointer-events:none;border-left:4px solid var(--orange)}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* BACK TO TOP */
+.btt{position:fixed;bottom:30px;right:30px;z-index:900;width:48px;height:48px;background:var(--orange);color:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 6px 22px rgba(255,92,0,.42);opacity:0;transform:translateY(24px);pointer-events:none;transition:all .38s var(--ease);border:none;cursor:pointer}
+.btt.vis{opacity:1;transform:translateY(0);pointer-events:all}
+.btt:hover{background:var(--orange-dark);transform:translateY(-4px)}
+
+/* REVIEW FORM MODAL */
+.rf-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1300;opacity:0;visibility:hidden;transition:all .3s;display:flex;align-items:center;justify-content:center;padding:20px}
+.rf-overlay.open{opacity:1;visibility:visible}
+.rf-modal{background:white;border-radius:22px;width:100%;max-width:560px;padding:40px;transform:scale(.94) translateY(20px);transition:all .38s var(--ease);position:relative}
+.rf-overlay.open .rf-modal{transform:scale(1) translateY(0)}
+.rf-close{position:absolute;top:18px;right:18px;width:36px;height:36px;background:var(--light);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;border:none;transition:all .2s}
+.rf-close:hover{background:#ff5c0018;color:var(--orange)}
+.rf-title{font-size:28px;margin-bottom:6px}
+.rf-sub{font-size:14px;color:var(--mid);margin-bottom:28px}
+.rf-stars-pick{display:flex;gap:8px;margin-bottom:22px}
+.rf-star{font-size:32px;cursor:pointer;color:#ddd;transition:all .2s;line-height:1}
+.rf-star.lit{color:#FFC107}
+.rf-field{margin-bottom:18px}
+.rf-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;display:block}
+.rf-input{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s}
+.rf-input:focus{border-color:var(--orange)}
+.rf-textarea{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;resize:vertical;min-height:100px;transition:border-color .2s}
+.rf-textarea:focus{border-color:var(--orange)}
+.rf-submit{width:100%;padding:14px;background:var(--orange);color:white;border-radius:12px;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;transition:all .25s;border:none;cursor:pointer}
+.rf-submit:hover{background:var(--orange-dark);transform:translateY(-2px)}
+
+@media(max-width:1100px){.product-grid{grid-template-columns:1fr;gap:40px}.gallery{position:static}.desc-grid{grid-template-columns:1fr}.related-grid{grid-template-columns:repeat(2,1fr)}.foot-grid{grid-template-columns:1fr 1fr;gap:36px}}
+@media(max-width:768px){nav{display:none}.hamburger{display:flex}.mobile-menu{display:block}.btn-quote{display:none}.reviews-summary{grid-template-columns:1fr}.related-grid{grid-template-columns:repeat(2,1fr);gap:14px}.qty-cta{flex-wrap:wrap}.foot-grid{grid-template-columns:1fr}.cart-drawer{width:100%}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>📞 <a href="#">+1 (800) PRINT-IT</a></span>
+      <div class="topbar-div"></div>
+      <span>✉️ <a href="#">hello@printcraft.com</a></span>
+    </div>
+    <div class="topbar-right">
+      <a href="#">Track Order</a><a href="#">Upload Files</a><a href="#">Login</a><a href="#">Register</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></div>
+      <div class="logo-text">Print<span>Craft</span></div>
+    </a>
+    <nav>
+      <a class="nav-link" href="index.html">Home</a>
+      <div class="nav-item">
+        <a class="nav-link active" href="shop.html">Products <span class="nav-arrow">▾</span></a>
+        <div class="dropdown">
+          <a href="#"><span class="dd-i">🪪</span> Business Cards</a>
+          <a href="#"><span class="dd-i">🖼️</span> Banners & Signs</a>
+          <a href="#"><span class="dd-i">👕</span> Apparel Printing</a>
+          <a href="#"><span class="dd-i">📦</span> Packaging</a>
+          <a href="#"><span class="dd-i">🪟</span> Stickers & Labels</a>
+          <a href="#"><span class="dd-i">📄</span> Flyers & Leaflets</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a class="nav-link" href="services.html">Services <span class="nav-arrow">▾</span></a>
+        <div class="dropdown">
+          <a href="#"><span class="dd-i">🎨</span> Design Service</a>
+          <a href="#"><span class="dd-i">⚡</span> Rush Printing</a>
+          <a href="#"><span class="dd-i">🏭</span> Bulk Orders</a>
+          <a href="#"><span class="dd-i">🚚</span> Nationwide Shipping</a>
+        </div>
+      </div>
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-link" href="blog.html">Blog</a>
+      <a class="nav-link" href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="searchBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" id="cartBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
+      <a href="quote.html" class="btn-quote">Get Quote</a>
+      <a href="shop.html" class="btn-order">Order Now</a>
+      <button class="hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a><a href="shop.html">Products</a>
+  <a href="services.html">Services</a><a href="about.html">About</a>
+  <a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+</div>
+
+<!-- SEARCH -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="s-close" id="searchClose">✕</div>
+  <div class="search-box">
+    <div class="s-input-row">
+      <input class="s-input" id="searchInput" type="text" placeholder="Search products...">
+      <button class="s-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    </div>
+    <div class="s-tags">
+      <div class="stag">Business Cards</div><div class="stag">Banners</div>
+      <div class="stag">T-Shirts</div><div class="stag">Stickers</div>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay">
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-head"><h3>Shopping Cart</h3><button class="cart-x" id="cartClose">✕</button></div>
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-foot" id="cartFoot">
+      <div class="ct-row"><span>Subtotal</span><span id="cartSub">$0.00</span></div>
+      <div class="ct-row"><span>Shipping</span><span style="color:#00b090;font-weight:700">FREE</span></div>
+      <div class="ct-row big"><span>Total</span><span id="cartTotal">$0.00</span></div>
+      <a href="checkout.html" class="btn-chk">Proceed to Checkout →</a>
+      <button class="btn-cont" id="cartCont">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW FORM MODAL -->
+<div class="rf-overlay" id="rfOverlay">
+  <div class="rf-modal">
+    <button class="rf-close" id="rfClose">✕</button>
+    <h3 class="rf-title">Write a Review</h3>
+    <p class="rf-sub">Share your experience with this product</p>
+    <div class="rf-stars-pick" id="rfStars">
+      <span class="rf-star" data-v="1">★</span><span class="rf-star" data-v="2">★</span>
+      <span class="rf-star" data-v="3">★</span><span class="rf-star" data-v="4">★</span>
+      <span class="rf-star" data-v="5">★</span>
+    </div>
+    <div class="rf-field"><label class="rf-label">Your Name</label><input class="rf-input" type="text" placeholder="e.g. John Smith"></div>
+    <div class="rf-field"><label class="rf-label">Review Title</label><input class="rf-input" type="text" placeholder="e.g. Amazing quality!"></div>
+    <div class="rf-field"><label class="rf-label">Your Review</label><textarea class="rf-textarea" placeholder="Tell others what you think about this product..."></textarea></div>
+    <button class="rf-submit" onclick="submitReview()">Submit Review</button>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bar">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a><span class="bc-sep">›</span>
+    <a href="shop.html">Shop</a><span class="bc-sep">›</span>
+    <a href="shop.html">Business Cards</a><span class="bc-sep">›</span>
+    <span>Matte Finish Business Cards</span>
+  </div>
+</div>
+
+<!-- PRODUCT SECTION -->
+<section class="product-section">
+  <div class="container">
+    <div class="product-grid">
+
+      <!-- GALLERY -->
+      <div class="gallery reveal from-left">
+        <div class="main-img" id="mainImg">
+          <div class="main-img-badge">Best Seller</div>
+          <div class="main-img-icon" id="mainIcon">🪪</div>
+        </div>
+        <div class="thumbs-row">
+          <div class="thumb active" onclick="switchImg(this,'🪪','linear-gradient(135deg,#fff5f0,#ffd9c4)')">🪪</div>
+          <div class="thumb" onclick="switchImg(this,'🖨️','linear-gradient(135deg,#f0f8ff,#cce5ff)')">🖨️</div>
+          <div class="thumb" onclick="switchImg(this,'📦','linear-gradient(135deg,#f0fef8,#c6f8df)')">📦</div>
+          <div class="thumb" onclick="switchImg(this,'✨','linear-gradient(135deg,#fffdf0,#fff5cc)')">✨</div>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="product-info reveal from-right">
+        <div class="pi-eyebrow">
+          <span class="pi-cat">Business Cards</span>
+          <span class="pi-badge">🔥 Best Seller</span>
+        </div>
+        <h1 class="pi-name">Matte Finish Business Cards</h1>
+        <div class="pi-rating">
+          <span class="pi-stars">★★★★★</span>
+          <span class="pi-rc">4.9 out of 5 — <a href="#reviews" onclick="switchTab('reviews')">128 reviews</a></span>
+        </div>
+        <div class="pi-price">$19.99 <del>$29.99</del></div>
+        <div class="pi-save">💚 You save $10.00 (33% off)</div>
+        <p class="pi-desc">Premium matte finish business cards printed on thick 16pt card stock. Ultra-sharp edges, vibrant full-color printing, and a smooth satin finish that looks and feels genuinely professional. Perfect for entrepreneurs, creatives, and corporate teams.</p>
+
+        <!-- SIZE -->
+        <div class="opt-label">Size <span class="opt-selected" id="sizeLabel">3.5" × 2" (Standard)</span></div>
+        <div class="opts-row">
+          <button class="opt-btn active" onclick="selectOpt(this,'sizeLabel','3.5\" × 2\" (Standard)')">Standard</button>
+          <button class="opt-btn" onclick="selectOpt(this,'sizeLabel','3.5\" × 2.5\" (Large)')">Large</button>
+          <button class="opt-btn" onclick="selectOpt(this,'sizeLabel','2\" × 2\" (Square)')">Square</button>
+          <button class="opt-btn" onclick="selectOpt(this,'sizeLabel','1.5\" × 3.5\" (Slim)')">Slim</button>
+        </div>
+
+        <!-- FINISH -->
+        <div class="opt-label">Finish <span class="opt-selected" id="finishLabel">Matte</span></div>
+        <div class="opts-row">
+          <button class="opt-btn active" onclick="selectOpt(this,'finishLabel','Matte')">Matte</button>
+          <button class="opt-btn" onclick="selectOpt(this,'finishLabel','Glossy')">Glossy</button>
+          <button class="opt-btn" onclick="selectOpt(this,'finishLabel','Soft Touch')">Soft Touch</button>
+          <button class="opt-btn" onclick="selectOpt(this,'finishLabel','Linen')">Linen</button>
+        </div>
+
+        <!-- QUANTITY -->
+        <div class="opt-label">Quantity (Cards) <span class="opt-selected" id="qtyLabel">250 Cards</span></div>
+        <div class="opts-row">
+          <button class="opt-btn" onclick="selectQtyOpt(this,'100 Cards',14.99)">100</button>
+          <button class="opt-btn active" onclick="selectQtyOpt(this,'250 Cards',19.99)">250</button>
+          <button class="opt-btn" onclick="selectQtyOpt(this,'500 Cards',29.99)">500</button>
+          <button class="opt-btn" onclick="selectQtyOpt(this,'1000 Cards',49.99)">1,000</button>
+          <button class="opt-btn" onclick="selectQtyOpt(this,'2500 Cards',89.99)">2,500</button>
+        </div>
+
+        <!-- QTY & ADD -->
+        <div class="qty-cta">
+          <div class="qty-control">
+            <button onclick="changeQtyCtrl(-1)">−</button>
+            <span id="qtyNum">1</span>
+            <button onclick="changeQtyCtrl(1)">+</button>
+          </div>
+          <button class="btn-add-cart" onclick="addProductToCart()">
+            🛒 Add to Cart
+          </button>
+          <button class="btn-wish" id="wishBtn" onclick="toggleWish()">♡</button>
+        </div>
+        <button class="btn-buy-now" onclick="buyNow()">⚡ Buy Now</button>
+
+        <!-- PERKS -->
+        <div class="perks-row">
+          <div class="perk-item"><span class="perk-icon">🚚</span><strong>Free Shipping</strong>On all orders</div>
+          <div class="perk-item"><span class="perk-icon">⚡</span><strong>Rush 24H</strong>Available</div>
+          <div class="perk-item"><span class="perk-icon">🔄</span><strong>Free Reprint</strong>Guaranteed</div>
+        </div>
+
+        <!-- SHARE -->
+        <div class="share-row">
+          <span>Share:</span>
+          <div class="share-btn">f</div>
+          <div class="share-btn">in</div>
+          <div class="share-btn">tw</div>
+          <div class="share-btn" onclick="copyLink()">🔗</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TABS SECTION -->
+<div class="tabs-section" id="tabs">
+  <div class="container">
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('description')">Description</button>
+      <button class="tab-btn" onclick="switchTab('specs')">Specifications</button>
+      <button class="tab-btn" onclick="switchTab('reviews')" id="reviewsTab">Reviews (128)</button>
+      <button class="tab-btn" onclick="switchTab('shipping')">Shipping & Returns</button>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="tab-panel active" id="tab-description">
+      <div class="desc-grid reveal">
+        <div class="desc-text">
+          <h3>Premium Matte Business Cards</h3>
+          <p>Our matte finish business cards are printed on ultra-thick 16pt card stock, giving them a premium weight and feel that makes a strong first impression. The silk matte coating creates a sophisticated, non-reflective surface that's smooth to the touch.</p>
+          <p>Every card is printed using state-of-the-art HP Indigo digital presses, ensuring precise color reproduction and razor-sharp text — even at very small font sizes. Our automated quality inspection catches any imperfections before your cards are packaged.</p>
+          <ul class="desc-list">
+            <li>16pt extra-thick card stock — premium weight feel</li>
+            <li>Silk matte coating — smooth, non-reflective finish</li>
+            <li>Full bleed printing — vibrant, edge-to-edge color</li>
+            <li>HP Indigo digital press — razor sharp text and images</li>
+            <li>Die-cut to exact size — clean, professional edges</li>
+            <li>Eco-friendly soy-based inks — better for the planet</li>
+          </ul>
+        </div>
+        <div class="desc-visual reveal from-right">🪪</div>
+      </div>
+    </div>
+
+    <!-- SPECS -->
+    <div class="tab-panel" id="tab-specs">
+      <table class="specs-table reveal">
+        <tr><td>Product Type</td><td>Business Cards</td></tr>
+        <tr><td>Standard Size</td><td>3.5" × 2" (89mm × 51mm)</td></tr>
+        <tr><td>Paper Weight</td><td>16pt Card Stock (350gsm)</td></tr>
+        <tr><td>Coating</td><td>Silk Matte, Glossy, Soft Touch, Linen (selectable)</td></tr>
+        <tr><td>Print Method</td><td>HP Indigo Digital Press</td></tr>
+        <tr><td>Color Mode</td><td>Full Color CMYK (Both Sides)</td></tr>
+        <tr><td>Bleed Area</td><td>0.125" (3mm) on all sides</td></tr>
+        <tr><td>Resolution</td><td>300–600 DPI</td></tr>
+        <tr><td>File Formats</td><td>PDF, AI, EPS, PSD, PNG (300dpi+)</td></tr>
+        <tr><td>Turnaround</td><td>Standard 3–5 days, Rush 24H available</td></tr>
+        <tr><td>Quantities</td><td>100, 250, 500, 1,000, 2,500, 5,000</td></tr>
+        <tr><td>Packaging</td><td>Boxed in sets of 50, then outer box</td></tr>
+        <tr><td>Eco Friendly</td><td>FSC Certified Paper, Soy Inks</td></tr>
+      </table>
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="tab-panel" id="tab-reviews">
+      <div class="reviews-summary reveal">
+        <div class="rating-big">
+          <div class="rb-num">4.9</div>
+          <div class="rb-stars">★★★★★</div>
+          <div class="rb-count">Based on 128 reviews</div>
+          <button class="review-form-btn" style="margin-top:20px" onclick="openReviewForm()">Write a Review</button>
+        </div>
+        <div class="rating-bars">
+          <div class="rbar-row"><span class="rbar-label">5 ★</span><div class="rbar-track"><div class="rbar-fill" style="width:0%" data-w="85%"></div></div><span class="rbar-pct">85%</span></div>
+          <div class="rbar-row"><span class="rbar-label">4 ★</span><div class="rbar-track"><div class="rbar-fill" style="width:0%" data-w="10%"></div></div><span class="rbar-pct">10%</span></div>
+          <div class="rbar-row"><span class="rbar-label">3 ★</span><div class="rbar-track"><div class="rbar-fill" style="width:0%" data-w="3%"></div></div><span class="rbar-pct">3%</span></div>
+          <div class="rbar-row"><span class="rbar-label">2 ★</span><div class="rbar-track"><div class="rbar-fill" style="width:0%" data-w="1%"></div></div><span class="rbar-pct">1%</span></div>
+          <div class="rbar-row"><span class="rbar-label">1 ★</span><div class="rbar-track"><div class="rbar-fill" style="width:0%" data-w="1%"></div></div><span class="rbar-pct">1%</span></div>
+        </div>
+      </div>
+      <div class="reviews-list" id="reviewsList">
+        <!-- Reviews injected by JS -->
+      </div>
+    </div>
+
+    <!-- SHIPPING -->
+    <div class="tab-panel" id="tab-shipping">
+      <div class="desc-grid reveal">
+        <div class="desc-text">
+          <h3>Shipping Information</h3>
+          <p>We offer free standard shipping on all orders to the continental United States. Orders are printed and shipped directly from our New York facility.</p>
+          <ul class="desc-list">
+            <li>Standard Shipping: 3–5 business days (FREE)</li>
+            <li>Expedited Shipping: 2 business days ($9.99)</li>
+            <li>Rush Overnight: Next business day ($24.99)</li>
+            <li>Rush 24H Print + Ship: Available at checkout</li>
+            <li>International Shipping: Available to 50+ countries</li>
+            <li>Real-time tracking on every order</li>
+          </ul>
+          <h3 style="margin-top:32px">Returns & Reprints</h3>
+          <p>We stand behind every product we print. If your order arrives damaged, defective, or not as approved, we will reprint your order absolutely free of charge — no questions asked.</p>
+          <ul class="desc-list">
+            <li>Free reprint if order arrives damaged</li>
+            <li>Free reprint if colors differ from approved proof</li>
+            <li>Contact us within 14 days of delivery</li>
+            <li>Photo evidence of issue required</li>
+          </ul>
+        </div>
+        <div>
+          <div class="desc-visual reveal from-right" style="margin-bottom:20px">🚚</div>
+          <div style="background:rgba(255,92,0,.06);border:1px solid rgba(255,92,0,.2);border-radius:16px;padding:24px;margin-top:20px">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:10px;color:var(--orange)">NEED RUSH PRINTING?</div>
+            <p style="font-size:14px;color:var(--mid);line-height:1.7;margin-bottom:16px">Our rush 24-hour service gets your prints done and shipped the very next business day. Perfect for last-minute events and campaigns.</p>
+            <a href="quote.html" style="display:inline-block;padding:10px 20px;background:var(--orange);color:white;border-radius:9px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.07em">Get Rush Quote</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED PRODUCTS -->
+<section class="related-section">
+  <div class="container">
+    <div class="eyebrow reveal">You May Also Like</div>
+    <h2 class="sec-title reveal d1">RELATED PRODUCTS</h2>
+    <div class="related-grid" id="relatedGrid"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <div class="mi"><span class="mstar">★</span> FAST TURNAROUND</div>
+    <div class="mi"><span class="mstar">★</span> FREE SHIPPING</div>
+    <div class="mi"><span class="mstar">★</span> PREMIUM QUALITY</div>
+    <div class="mi"><span class="mstar">★</span> 100% GUARANTEE</div>
+    <div class="mi"><span class="mstar">★</span> FAST TURNAROUND</div>
+    <div class="mi"><span class="mstar">★</span> FREE SHIPPING</div>
+    <div class="mi"><span class="mstar">★</span> PREMIUM QUALITY</div>
+    <div class="mi"><span class="mstar">★</span> 100% GUARANTEE</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div class="foot-grid">
+      <div class="foot-logo">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></div>
+          <div class="logo-text" style="color:white">Print<span>Craft</span></div>
+        </a>
+        <p>Your trusted partner for premium custom printing. Quality you can see, service you can feel.</p>
+        <div class="foot-socials">
+          <a href="#" class="fsoc">f</a><a href="#" class="fsoc">in</a><a href="#" class="fsoc">tw</a><a href="#" class="fsoc">ig</a>
+        </div>
+      </div>
+      <div><div class="fcol-title">Quick Links</div><div class="flinks"><a href="index.html">Home</a><a href="about.html">About Us</a><a href="shop.html">Products</a><a href="services.html">Services</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></div></div>
+      <div><div class="fcol-title">Products</div><div class="flinks"><a href="#">Business Cards</a><a href="#">Banners</a><a href="#">T-Shirts</a><a href="#">Flyers</a><a href="#">Stickers</a><a href="#">Packaging</a></div></div>
+      <div><div class="fcol-title">Contact</div><div class="fcon-row"><span class="fcon-icon">📞</span><span>+1 (800) PRINT-IT</span></div><div class="fcon-row"><span class="fcon-icon">✉️</span><span>hello@printcraft.com</span></div><div class="fcon-row"><span class="fcon-icon">🕐</span><span>Mon–Fri: 8am–8pm EST</span></div></div>
+    </div>
+  </div>
+  <div class="foot-bottom"><div class="foot-bottom-inner"><span>© 2026 PrintCraft. All rights reserved.</span><div class="fbot-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div></div></div>
+</footer>
+
+<div class="toast" id="toast"><span id="toastMsg">Added to cart!</span></div>
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* ══ DATA ══ */
+const RELATED = [
+  {id:2,name:'Glossy Premium Business Cards',cat:'Business Cards',price:22.99,icon:'🪪',bg:'linear-gradient(135deg,#f0f8ff,#cce6ff)'},
+  {id:4,name:'Vinyl Roll-Up Banner',cat:'Banners',price:49.99,icon:'🖼️',bg:'linear-gradient(135deg,#f0fef8,#c6f8df)'},
+  {id:10,name:'Die-Cut Vinyl Stickers',cat:'Stickers',price:14.99,icon:'🪟',bg:'linear-gradient(135deg,#fffdf0,#fff5cc)'},
+  {id:13,name:'Full Color Flyers 500pc',cat:'Flyers',price:39.99,old:59.99,icon:'📄',bg:'linear-gradient(135deg,#f5f0ff,#e0ccff)'},
+];
+
+const REVIEWS = [
+  {name:'Michael Kim',initials:'MK',color:'var(--orange)',rating:5,date:'January 12, 2026',title:'Absolutely stunning cards!',text:'I have ordered from many print shops over the years, and PrintCraft blows them all out of the water. The matte finish is smooth, the colors are incredibly vibrant, and the cards feel premium — not flimsy at all. They arrived faster than expected and were packaged perfectly. Will be ordering again for my team.',helpful:24,verified:true},
+  {name:'Sarah Rodriguez',initials:'SR',color:'#6C5CE7',rating:5,date:'December 28, 2025',title:'Perfect for my photography business',text:'These cards are exactly what I needed to represent my brand. The print quality is exceptional — even the fine details in my logo came out sharp and clear. The matte coating feels luxurious and professional. My clients always comment on them. 10/10 recommend!',helpful:18,verified:true},
+  {name:'James Thompson',initials:'JT',color:'#00B090',rating:5,date:'December 14, 2025',title:'Fast, high quality, great value',text:'Ordered 500 cards for our corporate rebrand. They were ready in 3 days, arrived well packaged, and looked exactly like our proof. The color accuracy is spot on — pantone-matched to our brand guidelines. Price is very competitive for this quality.',helpful:31,verified:true},
+  {name:'Emily Chen',initials:'EC',color:'#FF5C00',rating:4,date:'November 30, 2025',title:'Great quality, slight delay',text:'The cards themselves are beautiful — thick, clean matte finish, great colors. My only minor complaint was that my order took one extra day due to a rush of holiday orders, but the team communicated proactively which I appreciated. Will definitely order again.',helpful:9,verified:true},
+];
+
+let cart = [];
+let qty = 1;
+let currentPrice = 19.99;
+let wished = false;
+let rfRating = 0;
+
+/* ══ GALLERY ══ */
+function switchImg(thumb, icon, bg) {
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+  const mainImg = document.getElementById('mainImg');
+  mainImg.style.background = bg;
+  mainImg.style.transition = 'background .4s ease';
+  document.getElementById('mainIcon').style.transform = 'scale(0.8) rotate(-5deg)';
+  document.getElementById('mainIcon').style.opacity = '0';
+  setTimeout(() => {
+    document.getElementById('mainIcon').textContent = icon;
+    document.getElementById('mainIcon').style.transform = '';
+    document.getElementById('mainIcon').style.opacity = '1';
+    document.getElementById('mainIcon').style.transition = 'all .35s var(--ease)';
+  }, 200);
+}
+
+/* ══ OPTIONS ══ */
+function selectOpt(btn, labelId, val) {
+  btn.closest('.opts-row').querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(labelId).textContent = val;
+}
+
+function selectQtyOpt(btn, val, price) {
+  btn.closest('.opts-row').querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('qtyLabel').textContent = val;
+  currentPrice = price;
+}
+
+/* ══ QTY CONTROL ══ */
+function changeQtyCtrl(d) {
+  qty = Math.max(1, qty + d);
+  document.getElementById('qtyNum').textContent = qty;
+}
+
+/* ══ WISH ══ */
+function toggleWish() {
+  wished = !wished;
+  const btn = document.getElementById('wishBtn');
+  btn.textContent = wished ? '♥' : '♡';
+  btn.style.color = wished ? 'var(--orange)' : '';
+  btn.style.borderColor = wished ? 'var(--orange)' : '';
+  toast(wished ? '❤️ Added to wishlist!' : 'Removed from wishlist');
+}
+
+/* ══ CART ══ */
+function addProductToCart() {
+  const product = { id: 1, name: 'Matte Finish Business Cards', cat: 'Business Cards', icon: '🪪', bg: 'linear-gradient(135deg,#fff5f0,#ffd9c4)', price: currentPrice };
+  const ex = cart.find(x => x.id === 1);
+  if (ex) ex.qty += qty;
+  else cart.push({ ...product, qty });
+  updateCartUI();
+  toast(`🛒 ${qty} × "${product.name}" added to cart!`);
+  bumpBadge();
+  openCart();
+}
+
+function addToCartById(icon, bg, name, cat, price, id) {
+  const ex = cart.find(x => x.id === id);
+  if (ex) ex.qty++;
+  else cart.push({ id, name, cat, icon, bg, price, qty: 1 });
+  updateCartUI();
+  toast(`"${name}" added to cart!`);
+  bumpBadge();
+  openCart();
+}
+
+function buyNow() { addProductToCart(); window.location.href = 'checkout.html'; }
+
+function removeFromCart(id) { cart = cart.filter(x => x.id !== id); updateCartUI(); }
+function changeQty(id, d) { const c = cart.find(x => x.id === id); if (c) { c.qty = Math.max(1, c.qty + d); updateCartUI(); } }
+
+function updateCartUI() {
+  const n = cart.reduce((a, c) => a + c.qty, 0);
+  document.getElementById('cartCount').textContent = n;
+  const sub = cart.reduce((a, c) => a + c.price * c.qty, 0);
+  document.getElementById('cartSub').textContent = '$' + sub.toFixed(2);
+  document.getElementById('cartTotal').textContent = '$' + sub.toFixed(2);
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  if (!cart.length) {
+    body.innerHTML = `<div style="text-align:center;padding:70px 20px;color:var(--mid)"><div style="font-size:56px;margin-bottom:16px">🛒</div><h4 style="font-size:18px;margin-bottom:8px">Your cart is empty</h4><p style="font-size:14px">Browse and add something!</p></div>`;
+    foot.style.display = 'none';
+  } else {
+    foot.style.display = 'block';
+    body.innerHTML = cart.map(c => `
+      <div class="cart-item">
+        <div class="ci-thumb" style="background:${c.bg}">${c.icon}</div>
+        <div style="flex:1"><div class="ci-name">${c.name}</div><div class="ci-cat">${c.cat}</div>
+          <div class="qty-row">
+            <button class="qty-btn" onclick="changeQty(${c.id},-1)">−</button>
+            <span class="qty-n">${c.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${c.id},1)">+</button>
+          </div>
+        </div>
+        <div class="ci-price">$${(c.price * c.qty).toFixed(2)}</div>
+        <button class="ci-rm" onclick="removeFromCart(${c.id})">✕</button>
+      </div>`).join('');
+  }
+}
+
+function openCart() { document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartDrawer').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartDrawer').classList.remove('open'); document.body.style.overflow = ''; }
+function bumpBadge() { const b = document.getElementById('cartCount'); b.classList.add('bump'); setTimeout(() => b.classList.remove('bump'), 380); }
+
+document.getElementById('cartBtn').onclick = openCart;
+document.getElementById('cartClose').onclick = closeCart;
+document.getElementById('cartCont').onclick = closeCart;
+document.getElementById('cartOverlay').onclick = e => { if (e.target === e.currentTarget) closeCart(); };
+
+/* ══ TABS ══ */
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const btn = [...document.querySelectorAll('.tab-btn')].find(b => b.getAttribute('onclick').includes(id));
+  if (btn) btn.classList.add('active');
+  const panel = document.getElementById('tab-' + id);
+  if (panel) { panel.classList.add('active'); }
+  document.getElementById('tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (id === 'reviews') animateRatingBars();
+}
+
+function animateRatingBars() {
+  setTimeout(() => {
+    document.querySelectorAll('.rbar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.w;
+      bar.style.transition = 'width 1.2s cubic-bezier(.25,.46,.45,.94)';
+    });
+  }, 100);
+}
+
+/* ══ REVIEWS ══ */
+function renderReviews() {
+  document.getElementById('reviewsList').innerHTML = REVIEWS.map(r => `
+    <div class="review-card reveal">
+      <div class="rc-head">
+        <div class="rc-avatar" style="background:${r.color}">${r.initials}</div>
+        <div>
+          <div class="rc-name">${r.name} ${r.verified ? '<span class="rc-verified">✓ Verified</span>' : ''}</div>
+          <div class="rc-date">${r.date}</div>
+        </div>
+      </div>
+      <div class="rc-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:8px">${r.title}</div>
+      <div class="rc-text">${r.text}</div>
+      <div class="rc-helpful">Was this helpful? <button onclick="this.textContent='👍 Yes (${r.helpful + 1})'">👍 Yes (${r.helpful})</button> <button onclick="this.textContent='👎 No (1)'">👎 No</button></div>
+    </div>
+  `).join('');
+  observeReveal();
+}
+
+/* ══ REVIEW FORM ══ */
+function openReviewForm() {
+  document.getElementById('rfOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeReviewForm() { document.getElementById('rfOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('rfClose').onclick = closeReviewForm;
+document.getElementById('rfOverlay').onclick = e => { if (e.target === e.currentTarget) closeReviewForm(); };
+
+document.querySelectorAll('.rf-star').forEach(star => {
+  star.onmouseover = () => {
+    const v = parseInt(star.dataset.v);
+    document.querySelectorAll('.rf-star').forEach((s, i) => s.classList.toggle('lit', i < v));
+  };
+  star.onmouseout = () => {
+    document.querySelectorAll('.rf-star').forEach((s, i) => s.classList.toggle('lit', i < rfRating));
+  };
+  star.onclick = () => {
+    rfRating = parseInt(star.dataset.v);
+    document.querySelectorAll('.rf-star').forEach((s, i) => s.classList.toggle('lit', i < rfRating));
+  };
+});
+
+function submitReview() {
+  if (!rfRating) { toast('Please select a star rating!'); return; }
+  closeReviewForm();
+  toast('🎉 Thank you! Your review has been submitted.');
+}
+
+/* ══ RELATED PRODUCTS ══ */
+function renderRelated() {
+  document.getElementById('relatedGrid').innerHTML = RELATED.map(p => `
+    <div class="rel-card reveal d${RELATED.indexOf(p) + 1}">
+      <div class="rel-img" style="background:${p.bg}">${p.icon}</div>
+      <div class="rel-info">
+        <div class="rel-cat">${p.cat}</div>
+        <div class="rel-name">${p.name}</div>
+        <div class="rel-foot">
+          <div class="rel-price">$${p.price.toFixed(2)}</div>
+          <button class="rel-add" onclick="addToCartById('${p.icon}','${p.bg}','${p.name}','${p.cat}',${p.price},${p.id})">+ Add</button>
+        </div>
+      </div>
+    </div>`).join('');
+  observeReveal();
+}
+
+/* ══ SEARCH ══ */
+const SO = document.getElementById('searchOverlay');
+document.getElementById('searchBtn').onclick = () => { SO.classList.add('open'); document.body.style.overflow = 'hidden'; setTimeout(() => document.getElementById('searchInput').focus(), 280); };
+document.getElementById('searchClose').onclick = () => { SO.classList.remove('open'); document.body.style.overflow = ''; };
+SO.onclick = e => { if (e.target === SO) { SO.classList.remove('open'); document.body.style.overflow = ''; } };
+
+/* ══ MOBILE MENU ══ */
+const MB = document.getElementById('menuBtn'), MM = document.getElementById('mobileMenu');
+MB.onclick = function () { this.classList.toggle('open'); MM.classList.toggle('open'); document.body.style.overflow = this.classList.contains('open') ? 'hidden' : ''; };
+
+/* ══ ESC ══ */
+document.onkeydown = e => {
+  if (e.key === 'Escape') { closeCart(); closeReviewForm(); SO.classList.remove('open'); MM.classList.remove('open'); MB.classList.remove('open'); document.body.style.overflow = ''; }
+};
+
+/* ══ SCROLL ══ */
+window.onscroll = () => {
+  document.getElementById('site-header').classList.toggle('scrolled', scrollY > 50);
+  document.getElementById('btt').classList.toggle('vis', scrollY > 440);
+};
+
+/* ══ REVEAL ══ */
+function observeReveal() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: .1, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => io.observe(el));
+}
+observeReveal();
+
+/* Rating bars on load if reviews tab visible */
+const rbarIO = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) animateRatingBars();
+}, { threshold: .3 });
+const rbarSection = document.querySelector('.reviews-summary');
+if (rbarSection) rbarIO.observe(rbarSection);
+
+/* ══ SHARE ══ */
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).catch(() => {});
+  toast('🔗 Link copied to clipboard!');
+}
+
+/* ══ TOAST ══ */
+let tTimer;
+function toast(msg) {
+  clearTimeout(tTimer);
+  const el = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  el.classList.add('show');
+  tTimer = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+/* ══ INIT ══ */
+renderReviews();
+renderRelated();
+updateCartUI();
+</script>
+</body>
+</html>

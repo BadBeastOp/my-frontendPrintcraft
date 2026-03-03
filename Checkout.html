@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout – PrintCraft</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#FF5C00;--orange-dark:#D94C00;--dark:#0f0f0f;--mid:#666;--light:#f5f5f5;--white:#fff;--border:#e8e8e8;--ease:cubic-bezier(.25,.46,.45,.94)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;color:var(--dark);background:var(--white);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em;line-height:1.05}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+input,select,textarea{font-family:'Outfit',sans-serif}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.from-right{transform:translateX(36px)}
+.reveal.visible{opacity:1!important;transform:none!important}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}
+
+/* TOPBAR */
+.topbar{background:var(--dark);color:#777;font-size:12.5px;padding:9px 0}
+.topbar-inner{max-width:1320px;margin:auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center}
+.topbar-left{display:flex;gap:20px;align-items:center}
+.topbar-div{width:1px;height:12px;background:#333}
+.topbar a{color:#666;transition:color .2s}.topbar a:hover{color:var(--orange)}
+.topbar-right{display:flex;gap:18px}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 4px 28px rgba(0,0,0,.09)}
+.header-inner{max-width:1320px;margin:auto;padding:0 28px;height:74px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-icon{width:42px;height:42px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center;transition:transform .35s,box-shadow .35s}
+.logo:hover .logo-icon{transform:rotate(-8deg) scale(1.1);box-shadow:0 6px 22px rgba(255,92,0,.4)}
+.logo-icon svg{width:22px;height:22px;fill:white}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px}
+.logo-text span{color:var(--orange)}
+.secure-header{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mid)}
+.secure-header span{color:#00b090;font-weight:700}
+
+/* PROGRESS */
+.progress-bar{background:white;border-bottom:1px solid var(--border);padding:20px 0}
+.progress-inner{max-width:600px;margin:auto;padding:0 28px;display:flex;align-items:center;justify-content:center}
+.prog-step{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:.07em}
+.prog-step.active{color:var(--orange)}
+.prog-step.done{color:#00b090}
+.prog-num{width:30px;height:30px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0}
+.prog-step.active .prog-num{background:var(--orange);border-color:var(--orange);color:white}
+.prog-step.done .prog-num{background:#00b090;border-color:#00b090;color:white}
+.prog-line{width:60px;height:2px;background:var(--border);margin:0 8px;flex-shrink:0}
+.prog-line.done{background:#00b090}
+
+/* PAGE HERO */
+.page-hero{background:var(--dark);padding:48px 0;position:relative;overflow:hidden}
+.ph-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 80% 50%,rgba(255,92,0,.14) 0%,transparent 65%)}
+.ph-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:60px 60px}
+.ph-inner{max-width:1320px;margin:auto;padding:0 28px;position:relative;z-index:1}
+.ph-inner h1{font-size:clamp(40px,5vw,66px);color:white;animation:fadeUp .8s ease both}
+.ph-inner p{font-size:15px;color:#666;margin-top:8px;animation:fadeUp .8s ease .15s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* CHECKOUT LAYOUT */
+.checkout-section{padding:52px 0 96px;background:var(--light)}
+.container{max-width:1320px;margin:auto;padding:0 28px}
+.checkout-wrap{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start}
+
+/* FORM CARDS */
+.form-card{background:white;border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:22px}
+.form-card-head{padding:22px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px}
+.form-card-num{width:32px;height:32px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;flex-shrink:0}
+.form-card-head h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px}
+.form-card-body{padding:28px}
+
+/* FORM FIELDS */
+.form-row{display:grid;gap:16px;margin-bottom:16px}
+.form-row.cols-2{grid-template-columns:1fr 1fr}
+.form-row.cols-3{grid-template-columns:1fr 1fr 1fr}
+.form-group{display:flex;flex-direction:column;gap:7px}
+.form-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--dark)}
+.form-label .req{color:var(--orange)}
+.form-input{padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;transition:all .22s;color:var(--dark);background:white}
+.form-input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,92,0,.08)}
+.form-input.error{border-color:#f33;box-shadow:0 0 0 3px rgba(255,51,51,.08)}
+.form-input::placeholder{color:#ccc}
+.form-select{padding:13px 40px 13px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;transition:all .22s;color:var(--dark);background:white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") right 12px center/11px no-repeat;-webkit-appearance:none;cursor:pointer}
+.form-select:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,92,0,.08)}
+.field-error{font-size:11.5px;color:#f33;font-weight:600;display:none}
+.field-error.show{display:block}
+
+/* SAME ADDRESS TOGGLE */
+.same-address{display:flex;align-items:center;gap:10px;padding:14px 16px;background:rgba(255,92,0,.05);border:1.5px solid rgba(255,92,0,.2);border-radius:10px;cursor:pointer;margin-bottom:16px}
+.sa-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;font-size:11px;color:white;background:var(--orange);flex-shrink:0}
+.same-address span{font-size:13.5px;font-weight:600}
+
+/* SHIPPING OPTIONS */
+.ship-opts{display:flex;flex-direction:column;gap:10px}
+.ship-opt{display:flex;align-items:center;gap:14px;padding:14px 18px;border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all .25s}
+.ship-opt:hover{border-color:var(--orange)}
+.ship-opt.active{border-color:var(--orange);background:rgba(255,92,0,.04)}
+.so-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;position:relative;transition:all .22s}
+.ship-opt.active .so-radio{border-color:var(--orange)}
+.ship-opt.active .so-radio::after{content:'';position:absolute;inset:2px;border-radius:50%;background:var(--orange)}
+.so-info{flex:1}
+.so-name{font-weight:700;font-size:14px}
+.so-days{font-size:12px;color:#bbb}
+.so-price{font-weight:900;font-size:15px;color:var(--dark)}
+.so-price.free{color:#00b090}
+.so-badge{display:inline-block;padding:2px 8px;background:rgba(255,92,0,.1);color:var(--orange);border-radius:100px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-left:8px}
+
+/* PAYMENT TABS */
+.pay-tabs{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap}
+.pay-tab{display:flex;align-items:center;gap:8px;padding:11px 18px;border:2px solid var(--border);border-radius:12px;font-size:13.5px;font-weight:700;cursor:pointer;transition:all .22s}
+.pay-tab:hover{border-color:var(--orange)}
+.pay-tab.active{border-color:var(--orange);background:rgba(255,92,0,.06);color:var(--orange)}
+.pay-tab-icon{font-size:18px}
+.pay-panel{display:none}
+.pay-panel.active{display:block;animation:fadeIn .35s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* CARD INPUT ROW */
+.card-number-wrap{position:relative}
+.card-icons{position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;gap:6px}
+.card-icon-tag{padding:2px 6px;border:1px solid var(--border);border-radius:4px;font-size:10px;font-weight:800;color:var(--mid)}
+
+/* ORDER NOTES */
+.form-textarea{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;transition:border-color .22s;resize:vertical;min-height:90px;color:var(--dark)}
+.form-textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,92,0,.08)}
+
+/* FILE UPLOAD */
+.file-upload{border:2px dashed var(--border);border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:all .25s;position:relative}
+.file-upload:hover,.file-upload.dragging{border-color:var(--orange);background:rgba(255,92,0,.03)}
+.file-upload input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.fu-icon{font-size:36px;margin-bottom:10px}
+.fu-text{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.fu-sub{font-size:12px;color:#bbb}
+.fu-btn{display:inline-block;padding:8px 18px;background:var(--orange);color:white;border-radius:8px;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;margin-top:12px}
+.file-list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.file-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--light);border-radius:8px;font-size:13px}
+.file-name{flex:1;font-weight:600}
+.file-size{color:#bbb;font-size:11px}
+.file-rm{color:#bbb;cursor:pointer;transition:color .2s}
+.file-rm:hover{color:#f33}
+
+/* AGREE */
+.agree-row{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--light);border-radius:10px;cursor:pointer;margin-top:4px}
+.agree-box{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:white;transition:all .22s;flex-shrink:0;margin-top:1px}
+.agree-row.checked .agree-box{background:var(--orange);border-color:var(--orange)}
+.agree-text{font-size:13px;color:var(--mid);line-height:1.65}
+.agree-text a{color:var(--orange);font-weight:700}
+
+/* PLACE ORDER BTN */
+.btn-place-order{width:100%;padding:18px;background:var(--orange);color:white;border-radius:14px;font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;transition:all .28s;box-shadow:0 6px 22px rgba(255,92,0,.35);border:none;cursor:pointer;margin-top:20px;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-place-order:hover{background:var(--orange-dark);transform:translateY(-2px);box-shadow:0 12px 34px rgba(255,92,0,.45)}
+.btn-place-order:disabled{opacity:.6;pointer-events:none}
+
+/* ORDER SUMMARY */
+.os-card{background:white;border:1px solid var(--border);border-radius:20px;overflow:hidden;position:sticky;top:94px}
+.os-head{padding:22px 28px;border-bottom:1px solid var(--border);background:var(--dark)}
+.os-head h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:white}
+.os-body{padding:24px 28px}
+.os-items{display:flex;flex-direction:column;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.os-item{display:flex;align-items:center;gap:12px}
+.os-thumb{width:54px;height:54px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;border:1px solid var(--border);position:relative}
+.os-qty-badge{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:var(--orange);color:white;border-radius:50%;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid white}
+.os-item-name{flex:1;font-weight:700;font-size:13.5px;line-height:1.4}
+.os-item-sub{font-size:11.5px;color:#bbb;margin-top:2px}
+.os-item-price{font-weight:900;font-size:14px;color:var(--orange);flex-shrink:0}
+.os-row{display:flex;justify-content:space-between;font-size:14px;color:var(--mid);margin-bottom:12px}
+.os-row.discount{color:#00b090;font-weight:700}
+.os-divider{height:1px;background:var(--border);margin:16px 0}
+.os-row.total{font-size:20px;font-weight:900;color:var(--dark);margin-bottom:0}
+.os-row.total span:last-child{color:var(--orange)}
+.trust-items{display:flex;flex-direction:column;gap:10px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.trust-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mid)}
+.trust-icon{font-size:18px;flex-shrink:0}
+.trust-item strong{color:var(--dark)}
+.pay-methods-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;flex-wrap:wrap}
+.pm-tag{padding:5px 10px;border:1px solid var(--border);border-radius:6px;font-size:11px;font-weight:800;color:var(--mid)}
+
+/* SUCCESS OVERLAY */
+.success-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:all .4s}
+.success-overlay.open{opacity:1;visibility:visible}
+.success-modal{background:white;border-radius:28px;padding:60px 50px;text-align:center;max-width:520px;width:100%;transform:scale(.9) translateY(20px);transition:all .4s var(--ease)}
+.success-overlay.open .success-modal{transform:scale(1) translateY(0)}
+.success-icon{font-size:80px;margin-bottom:20px;animation:popIn .6s var(--ease) .3s both}
+@keyframes popIn{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
+.success-title{font-size:48px;color:var(--dark);margin-bottom:10px}
+.success-sub{font-size:15px;color:var(--mid);line-height:1.75;margin-bottom:28px}
+.order-num{display:inline-block;padding:10px 24px;background:rgba(255,92,0,.1);border:1.5px solid rgba(255,92,0,.25);color:var(--orange);border-radius:100px;font-size:14px;font-weight:800;letter-spacing:.05em;margin-bottom:28px}
+.success-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-track{padding:14px 28px;background:var(--orange);color:white;border-radius:12px;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.07em;transition:all .25s}
+.btn-track:hover{background:var(--orange-dark);transform:translateY(-2px)}
+.btn-shop-again{padding:14px 28px;border:2px solid var(--border);color:var(--mid);border-radius:12px;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;transition:all .25s}
+.btn-shop-again:hover{border-color:var(--orange);color:var(--orange)}
+
+/* TOAST */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dark);color:white;border-radius:13px;padding:14px 22px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:10px;box-shadow:0 12px 44px rgba(0,0,0,.35);z-index:3000;transition:all .42s var(--ease);opacity:0;pointer-events:none;border-left:4px solid var(--orange)}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* MARQUEE */
+.marquee-bar{background:var(--orange);overflow:hidden;padding:12px 0}
+.marquee-track{display:flex;width:max-content;animation:mscroll 22s linear infinite}
+.mi{display:flex;align-items:center;gap:14px;padding:0 28px;font-family:'Bebas Neue',sans-serif;font-size:18px;color:white;letter-spacing:3px;white-space:nowrap}
+.mstar{font-size:10px;color:rgba(255,255,255,.45)}
+@keyframes mscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* FOOTER */
+footer{background:#080808;color:#555}
+.foot-top{padding:60px 0 40px}
+.foot-grid{max-width:1320px;margin:auto;padding:0 28px;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:60px}
+.foot-logo p{font-size:14px;line-height:1.85;margin:20px 0 28px;max-width:290px;color:#444}
+.foot-socials{display:flex;gap:9px}
+.fsoc{width:38px;height:38px;border-radius:10px;background:#141414;border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;font-size:13px;color:#444;font-weight:800;transition:all .28s}
+.fsoc:hover{background:var(--orange);border-color:var(--orange);color:white;transform:translateY(-4px)}
+.fcol-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:white;letter-spacing:1.5px;margin-bottom:22px}
+.flinks{display:flex;flex-direction:column;gap:11px}
+.flinks a{font-size:13.5px;color:#444;transition:all .22s}
+.flinks a:hover{color:white;padding-left:8px}
+.fcon-row{display:flex;gap:12px;margin-bottom:16px;font-size:13.5px;color:#444}
+.fcon-icon{color:var(--orange);flex-shrink:0}
+.foot-bottom{border-top:1px solid #141414;padding:22px 0}
+.foot-bottom-inner{max-width:1320px;margin:auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#2a2a2a}
+.fbot-links{display:flex;gap:22px}
+.fbot-links a{color:#333;transition:color .2s}
+.fbot-links a:hover{color:var(--orange)}
+
+/* BACK TO TOP */
+.btt{position:fixed;bottom:30px;right:30px;z-index:900;width:48px;height:48px;background:var(--orange);color:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 6px 22px rgba(255,92,0,.42);opacity:0;transform:translateY(24px);pointer-events:none;transition:all .38s var(--ease);border:none;cursor:pointer}
+.btt.vis{opacity:1;transform:translateY(0);pointer-events:all}
+.btt:hover{background:var(--orange-dark);transform:translateY(-4px)}
+
+@media(max-width:1100px){.checkout-wrap{grid-template-columns:1fr}.os-card{position:static}.foot-grid{grid-template-columns:1fr 1fr;gap:36px}}
+@media(max-width:768px){.form-row.cols-2,.form-row.cols-3{grid-template-columns:1fr}.checkout-section{padding:32px 0 64px}.success-modal{padding:40px 28px}.foot-grid{grid-template-columns:1fr}.pay-tabs{gap:8px}.pay-tab{padding:9px 14px;font-size:12.5px}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span>📞 <a href="#">+1 (800) PRINT-IT</a></span>
+      <div class="topbar-div"></div>
+      <span>✉️ <a href="#">hello@printcraft.com</a></span>
+    </div>
+    <div class="topbar-right">
+      <a href="#">Track Order</a><a href="#">Upload Files</a><a href="#">Login</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></div>
+      <div class="logo-text">Print<span>Craft</span></div>
+    </a>
+    <div class="secure-header">🔒 <span>Secure Checkout</span> — SSL Encrypted</div>
+    <a href="cart.html" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--mid);transition:color .2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--mid)'">← Back to Cart</a>
+  </div>
+</header>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="progress-inner">
+    <div class="prog-step done"><div class="prog-num">✓</div><span>Cart</span></div>
+    <div class="prog-line done"></div>
+    <div class="prog-step active"><div class="prog-num">2</div><span>Checkout</span></div>
+    <div class="prog-line"></div>
+    <div class="prog-step"><div class="prog-num">3</div><span>Confirmation</span></div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="ph-glow"></div><div class="ph-grid"></div>
+  <div class="ph-inner">
+    <h1>Checkout</h1>
+    <p>Complete your order below — fast, easy, and secure.</p>
+  </div>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="success-icon">🎉</div>
+    <h2 class="success-title">Order Placed!</h2>
+    <p class="success-sub">Thank you for your order! We've received it and our print team is already reviewing your files. You'll get a confirmation email shortly.</p>
+    <div class="order-num">Order #PC-<span id="orderNum">2026-8842</span></div>
+    <div class="success-btns">
+      <a href="#" class="btn-track">📦 Track Order</a>
+      <a href="shop.html" class="btn-shop-again">Continue Shopping</a>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT SECTION -->
+<div class="checkout-section">
+  <div class="container">
+    <div class="checkout-wrap">
+
+      <!-- LEFT: FORMS -->
+      <div>
+
+        <!-- CONTACT INFO -->
+        <div class="form-card reveal">
+          <div class="form-card-head">
+            <div class="form-card-num">1</div>
+            <h3>Contact Information</h3>
+          </div>
+          <div class="form-card-body">
+            <div class="form-row cols-2">
+              <div class="form-group">
+                <label class="form-label">First Name <span class="req">*</span></label>
+                <input class="form-input" type="text" id="firstName" placeholder="John">
+                <span class="field-error" id="firstNameErr">Please enter your first name</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name <span class="req">*</span></label>
+                <input class="form-input" type="text" id="lastName" placeholder="Smith">
+                <span class="field-error" id="lastNameErr">Please enter your last name</span>
+              </div>
+            </div>
+            <div class="form-row cols-2">
+              <div class="form-group">
+                <label class="form-label">Email Address <span class="req">*</span></label>
+                <input class="form-input" type="email" id="email" placeholder="john@company.com">
+                <span class="field-error" id="emailErr">Please enter a valid email</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input class="form-input" type="tel" id="phone" placeholder="+1 (555) 000-0000">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Company Name <span style="color:#bbb;font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+                <input class="form-input" type="text" id="company" placeholder="Your Company LLC">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BILLING ADDRESS -->
+        <div class="form-card reveal d1">
+          <div class="form-card-head">
+            <div class="form-card-num">2</div>
+            <h3>Billing Address</h3>
+          </div>
+          <div class="form-card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Street Address <span class="req">*</span></label>
+                <input class="form-input" type="text" id="address1" placeholder="123 Main Street">
+                <span class="field-error" id="address1Err">Please enter your address</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Apt, Suite, Floor <span style="color:#bbb;font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+                <input class="form-input" type="text" id="address2" placeholder="Suite 200">
+              </div>
+            </div>
+            <div class="form-row cols-3">
+              <div class="form-group">
+                <label class="form-label">City <span class="req">*</span></label>
+                <input class="form-input" type="text" id="city" placeholder="New York">
+                <span class="field-error" id="cityErr">Required</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">State <span class="req">*</span></label>
+                <select class="form-select" id="state">
+                  <option value="">Select State</option>
+                  <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>California</option>
+                  <option>Colorado</option><option>Florida</option><option>Georgia</option><option>Hawaii</option>
+                  <option>Illinois</option><option>Michigan</option><option selected>New York</option>
+                  <option>Ohio</option><option>Pennsylvania</option><option>Texas</option><option>Washington</option>
+                </select>
+                <span class="field-error" id="stateErr">Required</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">ZIP Code <span class="req">*</span></label>
+                <input class="form-input" type="text" id="zip" placeholder="10001" maxlength="5">
+                <span class="field-error" id="zipErr">Required</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Country</label>
+                <select class="form-select" id="country">
+                  <option selected>United States</option>
+                  <option>Canada</option><option>United Kingdom</option><option>Australia</option>
+                  <option>Germany</option><option>France</option><option>Japan</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHIPPING ADDRESS -->
+        <div class="form-card reveal d1">
+          <div class="form-card-head">
+            <div class="form-card-num">3</div>
+            <h3>Shipping Address</h3>
+          </div>
+          <div class="form-card-body">
+            <div class="same-address checked" id="sameAddr" onclick="toggleSameAddr()">
+              <div class="sa-check" id="sameCheck">✓</div>
+              <span>Same as billing address</span>
+            </div>
+            <div id="shippingFields" style="display:none">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Street Address</label>
+                  <input class="form-input" type="text" placeholder="123 Main Street">
+                </div>
+              </div>
+              <div class="form-row cols-3">
+                <div class="form-group"><label class="form-label">City</label><input class="form-input" type="text" placeholder="New York"></div>
+                <div class="form-group"><label class="form-label">State</label><select class="form-select"><option>New York</option></select></div>
+                <div class="form-group"><label class="form-label">ZIP</label><input class="form-input" type="text" placeholder="10001"></div>
+              </div>
+            </div>
+
+            <!-- Shipping Method -->
+            <div style="margin-top:20px">
+              <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--mid);margin-bottom:14px">Shipping Method</div>
+              <div class="ship-opts">
+                <div class="ship-opt active" onclick="selectShip(this,0)">
+                  <div class="so-radio"></div>
+                  <div class="so-info"><div class="so-name">Standard Shipping</div><div class="so-days">3–5 business days</div></div>
+                  <div class="so-price free">FREE</div>
+                </div>
+                <div class="ship-opt" onclick="selectShip(this,9.99)">
+                  <div class="so-radio"></div>
+                  <div class="so-info"><div class="so-name">Expedited Shipping</div><div class="so-days">2 business days</div></div>
+                  <div class="so-price">$9.99</div>
+                </div>
+                <div class="ship-opt" onclick="selectShip(this,24.99)">
+                  <div class="so-radio"></div>
+                  <div class="so-info"><div class="so-name">Rush Overnight <span class="so-badge">⚡ Rush</span></div><div class="so-days">Next business day</div></div>
+                  <div class="so-price">$24.99</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ARTWORK UPLOAD -->
+        <div class="form-card reveal d1">
+          <div class="form-card-head">
+            <div class="form-card-num">4</div>
+            <h3>Upload Artwork Files</h3>
+          </div>
+          <div class="form-card-body">
+            <div class="file-upload" id="fileUpload">
+              <input type="file" multiple accept=".pdf,.ai,.eps,.psd,.png,.jpg,.jpeg" onchange="handleFiles(this.files)">
+              <div class="fu-icon">📁</div>
+              <div class="fu-text">Drag & Drop your files here</div>
+              <div class="fu-sub">Supported: PDF, AI, EPS, PSD, PNG, JPG (300 DPI+)</div>
+              <div class="fu-btn">Browse Files</div>
+            </div>
+            <div class="file-list" id="fileList"></div>
+            <p style="font-size:12px;color:#bbb;margin-top:12px;line-height:1.7">Don't have your files ready? No problem — you can upload them later from your order dashboard. Our design team can also create artwork for you for a small fee.</p>
+          </div>
+        </div>
+
+        <!-- PAYMENT -->
+        <div class="form-card reveal d1">
+          <div class="form-card-head">
+            <div class="form-card-num">5</div>
+            <h3>Payment</h3>
+          </div>
+          <div class="form-card-body">
+            <!-- Pay Tabs -->
+            <div class="pay-tabs">
+              <div class="pay-tab active" onclick="switchPay(this,'card')"><span class="pay-tab-icon">💳</span> Credit Card</div>
+              <div class="pay-tab" onclick="switchPay(this,'paypal')"><span class="pay-tab-icon">🅿️</span> PayPal</div>
+              <div class="pay-tab" onclick="switchPay(this,'apple')"><span class="pay-tab-icon">🍎</span> Apple Pay</div>
+              <div class="pay-tab" onclick="switchPay(this,'invoice')"><span class="pay-tab-icon">📄</span> Invoice / PO</div>
+            </div>
+
+            <!-- Credit Card Panel -->
+            <div class="pay-panel active" id="pay-card">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Name on Card <span class="req">*</span></label>
+                  <input class="form-input" type="text" id="cardName" placeholder="John Smith">
+                  <span class="field-error" id="cardNameErr">Please enter the name on your card</span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Card Number <span class="req">*</span></label>
+                  <div class="card-number-wrap">
+                    <input class="form-input" type="text" id="cardNum" placeholder="0000 0000 0000 0000" maxlength="19" style="width:100%;padding-right:110px" oninput="formatCard(this)">
+                    <div class="card-icons">
+                      <span class="card-icon-tag" id="visaTag">VISA</span>
+                      <span class="card-icon-tag">MC</span>
+                    </div>
+                  </div>
+                  <span class="field-error" id="cardNumErr">Please enter a valid card number</span>
+                </div>
+              </div>
+              <div class="form-row cols-2">
+                <div class="form-group">
+                  <label class="form-label">Expiry Date <span class="req">*</span></label>
+                  <input class="form-input" type="text" id="expiry" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)">
+                  <span class="field-error" id="expiryErr">Invalid date</span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">CVV <span class="req">*</span></label>
+                  <input class="form-input" type="text" id="cvv" placeholder="• • •" maxlength="4">
+                  <span class="field-error" id="cvvErr">Invalid CVV</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- PayPal Panel -->
+            <div class="pay-panel" id="pay-paypal">
+              <div style="text-align:center;padding:36px 20px;background:var(--light);border-radius:14px">
+                <div style="font-size:48px;margin-bottom:14px">🅿️</div>
+                <div style="font-size:16px;font-weight:700;margin-bottom:8px">Pay with PayPal</div>
+                <p style="font-size:14px;color:var(--mid);line-height:1.7;margin-bottom:20px">You'll be redirected to PayPal to complete your payment securely. You'll return here once payment is confirmed.</p>
+                <div style="display:inline-block;padding:12px 32px;background:#0070ba;color:white;border-radius:12px;font-size:14px;font-weight:900;letter-spacing:.05em">Continue with PayPal →</div>
+              </div>
+            </div>
+
+            <!-- Apple Pay Panel -->
+            <div class="pay-panel" id="pay-apple">
+              <div style="text-align:center;padding:36px 20px;background:#000;border-radius:14px">
+                <div style="font-size:48px;margin-bottom:14px">🍎</div>
+                <div style="font-size:16px;font-weight:700;color:white;margin-bottom:8px">Apple Pay</div>
+                <p style="font-size:14px;color:#999;line-height:1.7;margin-bottom:20px">Use Touch ID or Face ID to pay instantly. Your payment info is never shared with us.</p>
+                <div style="display:inline-block;padding:12px 32px;background:white;color:black;border-radius:12px;font-size:14px;font-weight:900;letter-spacing:.05em">🍎 Pay</div>
+              </div>
+            </div>
+
+            <!-- Invoice Panel -->
+            <div class="pay-panel" id="pay-invoice">
+              <div style="background:rgba(255,92,0,.05);border:1.5px solid rgba(255,92,0,.2);border-radius:14px;padding:24px">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:10px">Invoice / Purchase Order</div>
+                <p style="font-size:14px;color:var(--mid);line-height:1.75;margin-bottom:18px">For business accounts. Enter your PO number below and we'll send you an invoice within 1 business day. Net 30 payment terms available for approved accounts.</p>
+                <div class="form-group">
+                  <label class="form-label">PO Number / Reference</label>
+                  <input class="form-input" type="text" placeholder="e.g. PO-2026-0042">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ORDER NOTES -->
+        <div class="form-card reveal d2">
+          <div class="form-card-head">
+            <div class="form-card-num">6</div>
+            <h3>Order Notes</h3>
+          </div>
+          <div class="form-card-body">
+            <div class="form-group">
+              <label class="form-label">Special Instructions <span style="color:#bbb;font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+              <textarea class="form-textarea" id="orderNotes" placeholder="e.g. Please use the exact Pantone colors specified in the file. Rush delivery needed by Friday."></textarea>
+            </div>
+            <div class="agree-row" id="agreeRow" onclick="toggleAgree()">
+              <div class="agree-box" id="agreeBox"></div>
+              <p class="agree-text">I have read and agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>. I confirm my artwork is ready for print as submitted. <span class="req" style="color:var(--orange)">*</span></p>
+            </div>
+            <button class="btn-place-order" id="placeOrderBtn" onclick="placeOrder()">
+              🔒 Place Order — Pay Securely
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: ORDER SUMMARY -->
+      <div class="os-card reveal from-right">
+        <div class="os-head"><h3>Your Order</h3></div>
+        <div class="os-body">
+          <!-- Items -->
+          <div class="os-items" id="osItems"></div>
+
+          <!-- Totals -->
+          <div class="os-row"><span>Subtotal</span><span id="osSub">$84.97</span></div>
+          <div class="os-row discount"><span>Coupon (FIRST30)</span><span>-$25.49</span></div>
+          <div class="os-divider"></div>
+          <div class="os-row"><span>Shipping</span><span id="osShip" style="color:#00b090;font-weight:700">FREE</span></div>
+          <div class="os-row"><span>Tax (8.5%)</span><span id="osTax">$5.07</span></div>
+          <div class="os-divider"></div>
+          <div class="os-row total"><span>Total</span><span id="osTotal">$64.55</span></div>
+
+          <!-- Trust -->
+          <div class="trust-items">
+            <div class="trust-item"><span class="trust-icon">🔒</span><div><strong>SSL Secured</strong> — 256-bit encryption</div></div>
+            <div class="trust-item"><span class="trust-icon">🔄</span><div><strong>Free Reprint</strong> — If something's wrong, we fix it</div></div>
+            <div class="trust-item"><span class="trust-icon">🚚</span><div><strong>Free Shipping</strong> — On all orders</div></div>
+            <div class="trust-item"><span class="trust-icon">📞</span><div><strong>24/7 Support</strong> — We're always here to help</div></div>
+          </div>
+
+          <!-- Pay icons -->
+          <div class="pay-methods-row">
+            <div class="pm-tag">VISA</div><div class="pm-tag">MC</div>
+            <div class="pm-tag">AMEX</div><div class="pm-tag">PayPal</div><div class="pm-tag">Apple Pay</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <div class="mi"><span class="mstar">★</span> FAST TURNAROUND</div>
+    <div class="mi"><span class="mstar">★</span> FREE SHIPPING</div>
+    <div class="mi"><span class="mstar">★</span> PREMIUM QUALITY</div>
+    <div class="mi"><span class="mstar">★</span> 100% GUARANTEE</div>
+    <div class="mi"><span class="mstar">★</span> FAST TURNAROUND</div>
+    <div class="mi"><span class="mstar">★</span> FREE SHIPPING</div>
+    <div class="mi"><span class="mstar">★</span> PREMIUM QUALITY</div>
+    <div class="mi"><span class="mstar">★</span> 100% GUARANTEE</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div class="foot-grid">
+      <div class="foot-logo">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></div>
+          <div class="logo-text" style="color:white">Print<span>Craft</span></div>
+        </a>
+        <p>Your trusted partner for premium custom printing.</p>
+        <div class="foot-socials">
+          <a href="#" class="fsoc">f</a><a href="#" class="fsoc">in</a><a href="#" class="fsoc">tw</a><a href="#" class="fsoc">ig</a>
+        </div>
+      </div>
+      <div><div class="fcol-title">Quick Links</div><div class="flinks"><a href="index.html">Home</a><a href="shop.html">Products</a><a href="about.html">About</a><a href="contact.html">Contact</a></div></div>
+      <div><div class="fcol-title">Products</div><div class="flinks"><a href="#">Business Cards</a><a href="#">Banners</a><a href="#">T-Shirts</a><a href="#">Stickers</a></div></div>
+      <div><div class="fcol-title">Contact</div><div class="fcon-row"><span class="fcon-icon">📞</span><span>+1 (800) PRINT-IT</span></div><div class="fcon-row"><span class="fcon-icon">✉️</span><span>hello@printcraft.com</span></div></div>
+    </div>
+  </div>
+  <div class="foot-bottom"><div class="foot-bottom-inner"><span>© 2026 PrintCraft. All rights reserved.</span><div class="fbot-links"><a href="#">Privacy</a><a href="#">Terms</a></div></div></div>
+</footer>
+
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* ══ ORDER ITEMS ══ */
+const ORDER_ITEMS = [
+  {icon:'🪪',bg:'linear-gradient(135deg,#fff5f0,#ffd9c4)',name:'Matte Finish Business Cards',opts:'250 Cards • Matte',price:19.99,qty:1},
+  {icon:'🖼️',bg:'linear-gradient(135deg,#f0fef8,#c6f8df)',name:'Vinyl Roll-Up Banner',opts:'33"×80" • Premium Vinyl',price:49.99,qty:2},
+  {icon:'🪟',bg:'linear-gradient(135deg,#fffdf0,#fff5cc)',name:'Die-Cut Vinyl Stickers',opts:'100 Pieces • Gloss',price:14.99,qty:1},
+];
+let shippingCost = 0;
+let agreed = false;
+
+function renderOsItems() {
+  document.getElementById('osItems').innerHTML = ORDER_ITEMS.map(i => `
+    <div class="os-item">
+      <div class="os-thumb" style="background:${i.bg}">${i.icon}<div class="os-qty-badge">${i.qty}</div></div>
+      <div class="os-item-name">${i.name}<div class="os-item-sub">${i.opts}</div></div>
+      <div class="os-item-price">$${(i.price * i.qty).toFixed(2)}</div>
+    </div>`).join('');
+  updateTotals();
+}
+
+function updateTotals() {
+  const sub = ORDER_ITEMS.reduce((a, i) => a + i.price * i.qty, 0);
+  const discount = sub * 0.30;
+  const afterDiscount = sub - discount;
+  const tax = afterDiscount * 0.085;
+  const total = afterDiscount + tax + shippingCost;
+  document.getElementById('osSub').textContent = '$' + sub.toFixed(2);
+  document.getElementById('osTax').textContent = '$' + tax.toFixed(2);
+  document.getElementById('osTotal').textContent = '$' + total.toFixed(2);
+  document.getElementById('osShip').textContent = shippingCost === 0 ? 'FREE' : '$' + shippingCost.toFixed(2);
+}
+
+/* ══ SAME ADDRESS ══ */
+let sameAddr = true;
+function toggleSameAddr() {
+  sameAddr = !sameAddr;
+  document.getElementById('sameAddr').classList.toggle('checked', sameAddr);
+  document.getElementById('sameCheck').textContent = sameAddr ? '✓' : '';
+  document.getElementById('shippingFields').style.display = sameAddr ? 'none' : 'block';
+}
+
+/* ══ SHIPPING ══ */
+function selectShip(el, cost) {
+  document.querySelectorAll('.ship-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  shippingCost = cost;
+  updateTotals();
+}
+
+/* ══ PAY TABS ══ */
+function switchPay(tab, id) {
+  document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById('pay-' + id).classList.add('active');
+}
+
+/* ══ CARD FORMAT ══ */
+function formatCard(input) {
+  let v = input.value.replace(/\D/g, '').slice(0, 16);
+  input.value = v.replace(/(.{4})/g, '$1 ').trim();
+  document.getElementById('visaTag').style.opacity = v.startsWith('4') ? '1' : '0.3';
+}
+function formatExpiry(input) {
+  let v = input.value.replace(/\D/g, '').slice(0, 4);
+  if (v.length >= 2) v = v.slice(0, 2) + ' / ' + v.slice(2);
+  input.value = v;
+}
+
+/* ══ FILE UPLOAD ══ */
+let uploadedFiles = [];
+function handleFiles(files) {
+  [...files].forEach(f => {
+    if (!uploadedFiles.find(x => x.name === f.name)) {
+      uploadedFiles.push(f);
+    }
+  });
+  renderFileList();
+}
+function renderFileList() {
+  document.getElementById('fileList').innerHTML = uploadedFiles.map((f, i) => `
+    <div class="file-item">
+      <span>📄</span>
+      <span class="file-name">${f.name}</span>
+      <span class="file-size">${(f.size / 1024).toFixed(1)} KB</span>
+      <span class="file-rm" onclick="removeFile(${i})">✕</span>
+    </div>`).join('');
+}
+function removeFile(i) { uploadedFiles.splice(i, 1); renderFileList(); }
+
+/* ══ AGREE ══ */
+function toggleAgree() {
+  agreed = !agreed;
+  document.getElementById('agreeRow').classList.toggle('checked', agreed);
+  document.getElementById('agreeBox').textContent = agreed ? '✓' : '';
+}
+
+/* ══ VALIDATE ══ */
+function validate() {
+  let valid = true;
+  const fields = [
+    { id: 'firstName', err: 'firstNameErr', check: v => v.trim().length > 0 },
+    { id: 'lastName',  err: 'lastNameErr',  check: v => v.trim().length > 0 },
+    { id: 'email',     err: 'emailErr',     check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    { id: 'address1',  err: 'address1Err',  check: v => v.trim().length > 3 },
+    { id: 'city',      err: 'cityErr',      check: v => v.trim().length > 0 },
+    { id: 'zip',       err: 'zipErr',       check: v => /^\d{5}$/.test(v) },
+    { id: 'cardName',  err: 'cardNameErr',  check: v => v.trim().length > 2 },
+    { id: 'cardNum',   err: 'cardNumErr',   check: v => v.replace(/\s/g,'').length === 16 },
+    { id: 'expiry',    err: 'expiryErr',    check: v => /^\d{2} \/ \d{2}$/.test(v) },
+    { id: 'cvv',       err: 'cvvErr',       check: v => /^\d{3,4}$/.test(v) },
+  ];
+  const activePayTab = document.querySelector('.pay-tab.active').textContent.trim();
+  const cardFields = ['cardName','cardNum','expiry','cvv'];
+
+  fields.forEach(f => {
+    if (cardFields.includes(f.id) && !activePayTab.includes('Credit')) return;
+    const input = document.getElementById(f.id);
+    const errEl = document.getElementById(f.err);
+    const ok = f.check(input.value);
+    input.classList.toggle('error', !ok);
+    errEl.classList.toggle('show', !ok);
+    if (!ok) valid = false;
+  });
+  return valid;
+}
+
+/* ══ PLACE ORDER ══ */
+function placeOrder() {
+  if (!agreed) { toast('⚠️ Please agree to the Terms & Conditions'); return; }
+  if (!validate()) { toast('⚠️ Please fill in all required fields correctly'); return; }
+
+  const btn = document.getElementById('placeOrderBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span style="animation:spin .8s linear infinite;display:inline-block">⏳</span> Processing your order...';
+
+  setTimeout(() => {
+    document.getElementById('orderNum').textContent = '2026-' + Math.floor(Math.random() * 9000 + 1000);
+    document.getElementById('successOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    btn.disabled = false;
+    btn.innerHTML = '🔒 Place Order — Pay Securely';
+  }, 2200);
+}
+
+/* ══ SCROLL ══ */
+window.onscroll = () => {
+  document.getElementById('site-header').classList.toggle('scrolled', scrollY > 50);
+  document.getElementById('btt').classList.toggle('vis', scrollY > 440);
+};
+
+/* ══ REVEAL ══ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: .08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ══ TOAST ══ */
+let tTimer;
+function toast(msg) {
+  clearTimeout(tTimer);
+  const el = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  el.classList.add('show');
+  tTimer = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+/* ══ INPUT LIVE VALIDATION ══ */
+document.querySelectorAll('.form-input').forEach(input => {
+  input.addEventListener('blur', () => { if (input.classList.contains('error')) input.classList.remove('error'); });
+});
+
+/* ══ DRAG DROP ══ */
+const fu = document.getElementById('fileUpload');
+fu.addEventListener('dragover', e => { e.preventDefault(); fu.classList.add('dragging'); });
+fu.addEventListener('dragleave', () => fu.classList.remove('dragging'));
+fu.addEventListener('drop', e => { e.preventDefault(); fu.classList.remove('dragging'); handleFiles(e.dataTransfer.files); });
+
+/* ══ INIT ══ */
+renderOsItems();
+</script>
+</body>
+</html>
