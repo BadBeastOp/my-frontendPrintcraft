@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" width="520" height="120">
+  <defs>
+    <linearGradient id="titleGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+  <rect width="520" height="120" fill="none" />
+  <g transform="translate(20,10)">
+    <circle cx="44" cy="50" r="38" fill="none" stroke="#00bcd4" stroke-width="14" />
+    <circle cx="44" cy="50" r="26" fill="none" stroke="#ff2d95" stroke-width="14" />
+    <circle cx="44" cy="50" r="14" fill="none" stroke="#ffdb00" stroke-width="14" />
+    <circle cx="44" cy="50" r="4" fill="#0f172a" />
+  </g>
+  <text x="110" y="56" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="800" fill="url(#titleGradient)">Insta</text>
+  <text x="110" y="98" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600" fill="#0f172a">Printing</text>
+</svg>
