@@ -11,6 +11,9 @@ import Checkout from "./pages/Checkout.jsx";
 import Contact from "./pages/Contact.jsx";
 import Designer from "./pages/Designer.jsx";
 import Quote from "./pages/Quote.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import About from "./pages/About.jsx";
 
 export default function App() {
   return (
@@ -24,9 +27,12 @@ export default function App() {
             <Route path="/shop/:slug" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/contact" element={<Contact />} />
+           <Route path="/contact" element={<Contact />} />
             <Route path="/designer" element={<Designer />} />
             <Route path="/quote" element={<Quote />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/about" element={<About />} />
           </Routes>
           <Footer />
           <AIAssistant />

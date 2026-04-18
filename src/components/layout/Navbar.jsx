@@ -15,15 +15,7 @@ const navLinks = [
       { label: "📄 Flyers & Leaflets", href: "/shop?category=Flyers" },
     ],
   },
-  {
-    label: "Services", href: "/contact",
-    children: [
-      { label: "🎨 Design Service", href: "/designer" },
-      { label: "⚡ Rush Printing", href: "/quote" },
-      { label: "🏭 Bulk Orders", href: "/quote" },
-      { label: "🚚 Nationwide Shipping", href: "/contact" },
-    ],
-  },
+  { label: "About Us", href: "/about" },
   { label: "How It Works", href: "/#howitworks" },
   { label: "Contact", href: "/contact" },
 ];
@@ -68,8 +60,8 @@ export default function Navbar() {
           <div className="topbar-right">
             <a href="#">Track Order</a>
             <a href="#">Upload Files</a>
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+           <Link to="/login">Login</Link>
+           <Link to="/register">Register</Link>
           </div>
         </div>
       </div>
