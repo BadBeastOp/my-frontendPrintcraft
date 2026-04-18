@@ -4,8 +4,9 @@ export function getPriceForQty(tiers, qty) {
   return tier ? tier.price : tiers[0].price;
 }
 
-// ── Full product catalogue (inspired by instaprinting.ca) ──────────
+// ── Full product catalogue ─────────────────────────────────────────
 export const PRODUCTS = [
+
   // ── BUSINESS CARDS ────────────────────────────────────────────────
   {
     id: 1,
@@ -369,6 +370,172 @@ export const PRODUCTS = [
       { qty: 10, price: 19.99 },
     ],
   },
+
+  // ── ✅ NEW PRODUCTS ADDED BELOW ───────────────────────────────────
+
+  // ── APPAREL ───────────────────────────────────────────────────────
+  {
+    id: 16,
+    name: "T-Shirt Printing",
+    slug: "t-shirt-printing",
+    cat: "Apparel",
+    f: "apparel",
+    icon: "👕",
+    bg: "linear-gradient(135deg,#f0f5ff,#ccd8ff)",
+    badge: "New",
+    bc: "",
+    price: 14.99,
+    description: "Custom printed t-shirts made to order with vibrant, long-lasting colors. Ideal for team uniforms, promotional merchandise, events, and branded giveaways. Choose from screen printing or direct-to-garment (DTG) depending on your quantity and design complexity.",
+    features: [
+      "Screen printing & DTG options",
+      "Unisex sizes XS – 3XL",
+      "100% cotton & poly-blend available",
+      "Up to full-color artwork",
+      "No minimum on DTG orders",
+      "Bulk discounts from 12 pieces",
+    ],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
+    finishes: ["Screen Print", "Direct-to-Garment (DTG)", "Heat Transfer"],
+    pricingTiers: [
+      { qty: 1,    price: 24.99 },
+      { qty: 12,   price: 18.99 },
+      { qty: 24,   price: 15.99 },
+      { qty: 50,   price: 13.99 },
+      { qty: 100,  price: 11.99 },
+      { qty: 250,  price: 9.99  },
+    ],
+  },
+
+  // ── CALENDARS ─────────────────────────────────────────────────────
+  {
+    id: 17,
+    name: "Wall Calendars – Booklet",
+    slug: "wall-calendars-booklet",
+    cat: "Calendars",
+    f: "calendars",
+    icon: "📅",
+    bg: "linear-gradient(135deg,#fff7ed,#fed7aa)",
+    badge: "New",
+    bc: "",
+    price: 12.99,
+    description: "Professionally printed booklet-style wall calendars featuring 12 monthly pages saddle-stitched together. Perfect for corporate gifting, brand promotions, and year-round visibility. Each month displays your custom photos, artwork, or branding.",
+    features: [
+      "12 monthly pages + cover",
+      "Saddle-stitched binding",
+      "Coil hanging option available",
+      "Full-color on every page",
+      "Custom photo or artwork per month",
+      "Printed on 100lb gloss text",
+    ],
+    sizes: ["5.5\" × 8.5\"", "8.5\" × 11\"", "11\" × 17\""],
+    finishes: ["Gloss", "Matte"],
+    pricingTiers: [
+      { qty: 25,   price: 12.99 },
+      { qty: 50,   price: 10.99 },
+      { qty: 100,  price: 8.99  },
+      { qty: 250,  price: 6.99  },
+      { qty: 500,  price: 5.49  },
+      { qty: 1000, price: 4.49  },
+    ],
+  },
+  {
+    id: 18,
+    name: "Wall Calendars – Poster",
+    slug: "wall-calendars-poster",
+    cat: "Calendars",
+    f: "calendars",
+    icon: "🗓️",
+    bg: "linear-gradient(135deg,#fdf2f8,#f9a8d4)",
+    badge: "New",
+    bc: "",
+    price: 9.99,
+    description: "Large-format single-sheet poster wall calendars that display all 12 months on one page. A bold and practical promotional piece that keeps your brand on display all year long.",
+    features: [
+      "Single-sheet 12-month layout",
+      "Full bleed, high-resolution print",
+      "Printed on 100lb gloss text",
+      "Optional lamination available",
+      "Perforated hang strip available",
+      "Eye-catching large-format design",
+    ],
+    sizes: ["11\" × 17\"", "18\" × 24\"", "24\" × 36\""],
+    finishes: ["Gloss", "Matte", "Gloss Laminate"],
+    pricingTiers: [
+      { qty: 25,   price: 9.99  },
+      { qty: 50,   price: 7.99  },
+      { qty: 100,  price: 5.99  },
+      { qty: 250,  price: 4.49  },
+      { qty: 500,  price: 3.49  },
+      { qty: 1000, price: 2.79  },
+    ],
+  },
+
+  // ── OFFICE SUPPLIES ───────────────────────────────────────────────
+  {
+    id: 19,
+    name: "Notepads",
+    slug: "notepads",
+    cat: "Office Supplies",
+    f: "office",
+    icon: "📝",
+    bg: "linear-gradient(135deg,#f0fdf4,#86efac)",
+    badge: "New",
+    bc: "",
+    price: 18.99,
+    description: "Custom printed notepads with your logo, branding, or design on every page. A practical and highly visible promotional item for offices, tradeshows, client gifting, and everyday business use.",
+    features: [
+      "25 or 50 sheets per pad",
+      "Chipboard backing included",
+      "Full-color header or full-page print",
+      "Glued top binding",
+      "Perforated sheets available",
+      "Multiple sizes to choose from",
+    ],
+    sizes: ["3.5\" × 5\"", "4.25\" × 5.5\"", "5.5\" × 8.5\"", "8.5\" × 11\""],
+    finishes: ["Uncoated (standard)", "Gloss Cover Page"],
+    pricingTiers: [
+      { qty: 25,   price: 18.99 },
+      { qty: 50,   price: 15.99 },
+      { qty: 100,  price: 12.99 },
+      { qty: 250,  price: 9.99  },
+      { qty: 500,  price: 7.99  },
+      { qty: 1000, price: 5.99  },
+    ],
+  },
+
+  // ── SIGNAGE ───────────────────────────────────────────────────────
+  {
+    id: 20,
+    name: "Aluminum Composite Signs",
+    slug: "aluminum-composite-signs",
+    cat: "Signage",
+    f: "signage",
+    icon: "🪧",
+    bg: "linear-gradient(135deg,#f8fafc,#cbd5e1)",
+    badge: "New",
+    bc: "",
+    price: 39.99,
+    description: "Rigid, professional-grade aluminum composite (ACM) signs built for long-term indoor and outdoor use. Weather-resistant, lightweight, and available in a range of sizes. Ideal for business signage, real estate signs, directional signs, and event displays.",
+    features: [
+      "3mm aluminum composite material",
+      "Weather & UV resistant",
+      "Rigid & lightweight construction",
+      "Full-color direct print",
+      "Pre-drilled holes available",
+      "Indoor and outdoor rated",
+    ],
+    sizes: ["12\" × 18\"", "18\" × 24\"", "24\" × 36\"", "24\" × 48\"", "48\" × 96\"", "Custom Size"],
+    finishes: ["Matte", "Gloss"],
+    pricingTiers: [
+      { qty: 1,  price: 39.99 },
+      { qty: 3,  price: 34.99 },
+      { qty: 5,  price: 29.99 },
+      { qty: 10, price: 24.99 },
+      { qty: 25, price: 19.99 },
+      { qty: 50, price: 16.99 },
+    ],
+  },
+
 ];
 
 // ── Aliases and helpers ────────────────────────────────────────────
@@ -376,23 +543,28 @@ export const products = PRODUCTS;
 
 export const categories = [
   { name: "Business Cards", icon: "🪪", count: 3 },
-  { name: "Flyers", icon: "📄", count: 2 },
-  { name: "Brochures", icon: "📋", count: 2 },
-  { name: "Banners", icon: "🖼️", count: 3 },
-  { name: "Stickers", icon: "⭐", count: 3 },
-  { name: "Postcards", icon: "💌", count: 1 },
-  { name: "Large Format", icon: "🖨️", count: 1 },
+  { name: "Flyers",         icon: "📄", count: 2 },
+  { name: "Brochures",      icon: "📋", count: 2 },
+  { name: "Banners",        icon: "🖼️", count: 3 },
+  { name: "Stickers",       icon: "⭐", count: 3 },
+  { name: "Postcards",      icon: "💌", count: 1 },
+  { name: "Large Format",   icon: "🖨️", count: 1 },
+  // ── NEW categories ──
+  { name: "Apparel",        icon: "👕", count: 1 },
+  { name: "Calendars",      icon: "📅", count: 2 },
+  { name: "Office Supplies",icon: "📝", count: 1 },
+  { name: "Signage",        icon: "🪧", count: 1 },
 ];
 
 export const testimonials = [
-  { id: 1, name: "Michael Kim", role: "CEO, Neon Digital Agency", initials: "MK", color: "#FF5C00", rating: 5, text: "The business cards came out absolutely perfect. Colors vivid, matte finish exactly right, arrived 2 days early. Insta Printing is my go-to from now on!" },
-  { id: 2, name: "Sarah Rodriguez", role: "Event Manager, StarPeak Events", initials: "SR", color: "#6C5CE7", rating: 5, text: "Ordered custom flyers for our event — 500 pieces in 2 days! All looked incredible and customer support was outstanding throughout." },
-  { id: 3, name: "James Thompson", role: "Marketing Director, BluePeak Inc.", initials: "JT", color: "#00B090", rating: 5, text: "The vinyl banners for our trade show looked stunning. Unmatched quality, very fair pricing, and turnaround was faster than expected." },
+  { id: 1, name: "Michael Kim",      role: "CEO, Neon Digital Agency",     initials: "MK", color: "#FF5C00", rating: 5, text: "The business cards came out absolutely perfect. Colors vivid, matte finish exactly right, arrived 2 days early. Insta Printing is my go-to from now on!" },
+  { id: 2, name: "Sarah Rodriguez",  role: "Event Manager, StarPeak Events",initials: "SR", color: "#6C5CE7", rating: 5, text: "Ordered custom flyers for our event — 500 pieces in 2 days! All looked incredible and customer support was outstanding throughout." },
+  { id: 3, name: "James Thompson",   role: "Marketing Director, BluePeak Inc.", initials: "JT", color: "#00B090", rating: 5, text: "The vinyl banners for our trade show looked stunning. Unmatched quality, very fair pricing, and turnaround was faster than expected." },
 ];
 
 export const stats = [
   { value: "50K+", label: "Orders Delivered" },
-  { value: "98%", label: "Satisfaction Rate" },
-  { value: "12+", label: "Years of Experience" },
+  { value: "98%",  label: "Satisfaction Rate" },
+  { value: "12+",  label: "Years of Experience" },
   { value: "500+", label: "Print Products" },
 ];
